@@ -12,10 +12,10 @@ order: 10
 `v-model`은 모든 form 엘리먼트의 초기 `value`와 `checked` 그리고 `selected` 속성을 무시합니다. 항상 Vue 인스턴스 데이터를 원본 소스로 취급합니다. 컴포넌트의 `data` 옵션 안에 있는 JavaScript에서 초기값을 선언해야합니다.
 </p>
 
-`v-model` internally uses different properties and emits different events for different input elements:
-- text and textarea elements use `value` property and `input` event;
-- checkboxes and radiobuttons use `checked` property and `change` event;
-- select fields use `value` as a prop and `change` as an event.
+`v-model`은 내부적으로 서로 다른 속성을 사용하고 서로 다른 입력 요소에 대해 서로 다른 이벤트를 전송합니다 : 
+- text 와 textarea 태그는 `value`속성과 `input`이벤트를 사용합니다.
+- 체크박스들과 라디오버튼들은 `checked` 속성과 `change` 이벤트를 사용합니다.
+- Select 태그는 `value`를 prop으로, `change`를 이벤트로 사용합니다.
 
 <p class="tip" id="vmodel-ime-tip">[IME](https://en.wikipedia.org/wiki/Input_method) (중국어, 일본어, 한국어 등)가 필요한 언어의 경우 IME 중 `v-model`이 업데이트 되지 않습니다. 이러한 업데이트를 처리하려면 `input` 이벤트를 대신 사용하십시오.</p>
 
