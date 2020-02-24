@@ -4,26 +4,26 @@ type: guide
 order: 103
 ---
 
-> This page assumes you've already read the [Components Basics](components.html). Read that first if you are new to components.
+> 이 문서는 [컴포넌트 기초](components.html) 문서를 읽었다는 것을 전제로 합니다. 컴포넌트에 익숙하지 않다면, 해당 문서를 우선 참고해 주세요.
 
 ## 이벤트 이름
 
-Unlike components and props, event names don't provide any automatic case transformation. Instead, the name of an emitted event must exactly match the name used to listen to that event. For example, if emitting a camelCased event name:
+컴포넌트 및 props와는 달리, 이벤트는 자동 대소문자 변환을 제공하지 않습니다. 대소문자를 혼용하는 대신에 emit할 정확한 이벤트 이름을 작성하는 것이 권장됩니다. 예를 들어, 아래와 같이 camelCase로 작성된 이벤트를 emit하는 경우,
 
 ```js
 this.$emit('myEvent')
 ```
 
-Listening to the kebab-cased version will have no effect:
+아래와 같이 kebab-case로 이벤트를 작성하게 되면 아무 동작도 하지 않습니다.
 
 ```html
-<!-- Won't work -->
+<!-- 이벤트가 동작하지 않음 -->
 <my-component v-on:my-event="doSomething"></my-component>
 ```
 
-Unlike components and props, event names will never be used as variable or property names in JavaScript, so there's no reason to use camelCase or PascalCase. Additionally, `v-on` event listeners inside DOM templates will be automatically transformed to lowercase (due to HTML's case-insensitivity), so `v-on:myEvent` would become `v-on:myevent` -- making `myEvent` impossible to listen to.
+컴포넌트 및 props와는 다르게 이벤트 이름은 자바스크립트 변수나 속성의 이름으로 사용되는 경우가 없으며, 따라서 camelCase나 PascalCase를 사용할 필요가 없습니다. 또한, (HTML의 대소문자 구분을 위해) DOM 템플릿의 `v-on` 이벤트리스너는 항상 자동으로 소문자 변환되기 때문에 `v-on:myEvent` 는 자동으로 `v-on:myevent`로 변환됩니다. -- 즉, `myEvent` 이벤트를 들을 수 없습니다.
 
-For these reasons, we recommend you **always use kebab-case for event names**.
+이러한 이유 때문에, **이벤트 이름에는 kebab-case를 사용**하는것이 권장됩니다.
 
 ## 컴포넌트의 `v-model` 커스터마이징
 
