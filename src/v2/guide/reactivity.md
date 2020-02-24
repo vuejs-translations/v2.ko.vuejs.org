@@ -123,15 +123,16 @@ Vue.component('example', {
 })
 ```
 
-Since `$nextTick()` returns a promise, you can achieve the same as the above using the new [ES2017 async/await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) syntax:
+`$nextTick()` 은 promise를 반환하므로, [ES2017 async/await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) 문법을 사용하여 똑같은 동작을 수행할 수 있습니다. 
 
 ``` js
   methods: {
     updateMessage: async function () {
-      this.message = 'updated'
-      console.log(this.$el.textContent) // => 'not updated'
+      this.message = '갱신됨'
+      console.log(this.$el.textContent) // => '갱신 안됨'
       await this.$nextTick()
-      console.log(this.$el.textContent) // => 'updated'
+      console.log(this.$el.textContent) // => '갱신됨'
     }
   }
 ```
+
