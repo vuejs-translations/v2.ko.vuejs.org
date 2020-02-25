@@ -29,7 +29,7 @@ this.$emit('myEvent')
 
 > New in 2.2.0+
 
-By default, `v-model` on a component uses `value` as the prop and `input` as the event, but some input types such as checkboxes and radio buttons may want to use the `value` attribute for a [different purpose](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#Value). Using the `model` option can avoid a conflict in such cases:
+`v-model` 을 사용하는 컴포넌트는 기본값으로 `value`를 prop으로 사용하고, `input` 을 이벤트로 사용합니다. 이 때, 체크박스와 같이 `value` 속성을  [다른 용도](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#Value)로 사용하여야 하는 경우에는 `model` 옵션을 이용하여 문제가 생기는 것을 방지할 수 있습니다.
 
 ```js
 Vue.component('base-checkbox', {
@@ -50,15 +50,15 @@ Vue.component('base-checkbox', {
 })
 ```
 
-Now when using `v-model` on this component:
+이제  `v-model` 을 컴포넌트에 사용하게 되면:
 
 ```html
 <base-checkbox v-model="lovingVue"></base-checkbox>
 ```
 
-the value of `lovingVue` will be passed to the `checked` prop. The `lovingVue` property will then be updated when `<base-checkbox>` emits a `change` event with a new value.
+`lovingVue` 의 값은 `checked` prop으로 전달됩니다. 그리고 `lovingVue` 속성은 `<base-checkbox>` 가 `change` 이벤트를 emit할 때 새로운 값으로 업데이트됩니다. 
 
-<p class="tip">Note that you still have to declare the <code>checked</code> prop in the component's <code>props</code> option.</p>
+이 때, `checked` 속성을 컴포넌트의 `props` 옵션에 선언해 주어야 하는 것을 잊지 마세요.
 
 ## 네이티브 이벤트를 컴포넌트에 바인딩 하기
 
