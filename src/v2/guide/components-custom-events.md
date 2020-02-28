@@ -103,7 +103,7 @@ Vue.component('base-input', {
       var vm = this
       // `Object.assign` 는 오브젝트를 새로운 오브젝트로 병합합니다.
       return Object.assign({},
-        // 우선 부모 요소의 모든 리스너를 추가합니다.
+        // 우선 부모 엘리먼트의 모든 리스너를 추가합니다.
         this.$listeners,
         // 그 다음, 기존 리스너를 override하는
         // 커스텀 리스터를 추가할 수 있습니다. 
