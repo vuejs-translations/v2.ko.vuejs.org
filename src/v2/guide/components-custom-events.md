@@ -133,17 +133,17 @@ Vue.component('base-input', {
 
 ## `.sync` 수식어
 
-> New in 2.3.0+
+> 2.3.0+ 에서 추가
 
-In some cases, we may need "two-way binding" for a prop. Unfortunately, true two-way binding can create maintenance issues, because child components can mutate the parent without the source of that mutation being obvious in both the parent and the child.
+가끔 prop에 대해서 "양방향 바인딩"이 필요한 경우가 있습니다. 안타깝게도, 진짜 양방향 바인딩은 유지보수 측면에서 이슈를 발생시킬 수 있습니다. 자식 컴포넌트가 변이 코드 없이 부모 컴포넌트를 변경할 수 있게 되면, 부모 요소와 자식 요소 중 변이를 발생시킨 지점을 특정할 수 없게 되기 때문입니다.
 
-That's why instead, we recommend emitting events in the pattern of `update:myPropName`. For example, in a hypothetical component with a `title` prop, we could communicate the intent of assigning a new value with:
+그렇기 때문에 이벤트를 emit할 때에는 `update:myPropName`과 같은 패턴이 권장됩니다. 예를 들어 `title`이라는 prop을 갖는 요소가 있다고 할 때, 아래와 같이 새로운 값을 할당하도록 요청할 수 있습니다.
 
 ```js
 this.$emit('update:title', newTitle)
 ```
 
-Then the parent can listen to that event and update a local data property, if it wants to. For example:
+그러면 부모 요소는 이벤트를 감지하여 (원한다면) 로컬 data 속성을 업데이트 할 수 있습니다. 예를 들어:
 
 ```html
 <text-document
@@ -152,20 +152,23 @@ Then the parent can listen to that event and update a local data property, if it
 ></text-document>
 ```
 
-For convenience, we offer a shorthand for this pattern with the `.sync` modifier:
+편의를 위해 이러한 패턴을 `.sync` 수식어를 이용하여 줄여서 표현할 수 있습니다.
 
 ```html
 <text-document v-bind:title.sync="doc.title"></text-document>
 ```
 
-<p class="tip">Note that <code>v-bind</code> with the <code>.sync</code> modifier does <strong>not</strong> work with expressions (e.g. <code>v-bind:title.sync="doc.title + '!'"</code> is invalid). Instead, you must only provide the name of the property you want to bind, similar to <code>v-model</code>.</p>
+<p class="tip"><code>v-bind</code> 와 <code>.sync</code> 수식어는 표현식과 함께 동작하지 <strong>않는다는</strong> 것에 주의하세요. (e.g. <code>v-bind:title.sync="doc.title + '!'"</code> 는 동작하지 않습니다.). <code>v-model</code> 과 같이, 표현식이 아닌 속성의 이름만 사용할 수 있습니다.</p>
 
-The `.sync` modifier can also be used with `v-bind` when using an object to set multiple props at once:
+`.sync` 수식어는 여러 개의 props를 한 번에 전달하기 위해서 `v-bind`와 사용될 수도 있습니다. 
 
 ```html
 <text-document v-bind.sync="doc"></text-document>
 ```
 
-This passes each property in the `doc` object (e.g. `title`) as an individual prop, then adds `v-on` update listeners for each one.
+위 구문은 `doc` 오브젝트의 각 속성(e.g.`title`)을 각각의 prop처럼 전달하고, 각각의 업데이트 리스너로써 `v-on` 을 추가합니다. 
 
-<p class="tip">Using <code>v-bind.sync</code> with a literal object, such as in <code>v-bind.sync="{ title: doc.title }"</code>, will not work, because there are too many edge cases to consider in parsing a complex expression like this.</p>
+`v-bind.sync="{ title: doc.title }"`과 같은 
+
+<p class="tip"><code>v-bind.sync="{ title: doc.title }"</code>와 같은 리터럴 오브젝트는 <code>v-bind.sync</code> 이러한 복잡한 표현식을 파싱하는 과정에서 발생할 수 있는 극단적인 경우가 너무 많기 때문에 동작하지 않습니다.
+
