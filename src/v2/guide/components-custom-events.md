@@ -92,7 +92,7 @@ Vue.component('base-checkbox', {
 }
 ```
 
- `$listeners` 속성을 이용하면 컴포넌트에서 `v-on=$listeners`를 이용해 부모 요소가 가진 이벤트 리스너를 특정 자식 요소에게 전달할 수 있습니다.  가령 `<input>`같은 엘리먼트에 `v-model` 를 적용하고 싶은 경우라면, 아래와 같이 `inputListeners`같은 새로운 computed 속성을 생성하여 유용하게 활용할 수 있습니다. 
+ `$listeners` 속성을 이용하면 컴포넌트에서 `v-on=$listeners`를 이용해 부모 엘리먼트가 가진 이벤트 리스너를 특정 자식 엘리먼트에게 전달할 수 있습니다.  가령 `<input>`같은 엘리먼트에 `v-model` 를 적용하고 싶은 경우라면, 아래와 같이 `inputListeners`같은 새로운 computed 속성을 생성하여 유용하게 활용할 수 있습니다. 
 
 ```js
 Vue.component('base-input', {
