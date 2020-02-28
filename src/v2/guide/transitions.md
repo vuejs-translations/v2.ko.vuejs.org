@@ -1304,9 +1304,9 @@ new Vue({
 </style>
 {% endraw %}
 
-### 지연된 목록 트랜지션
+### 스태거링 목록 트랜지션
 
-JavaScript 트랜지션과 통신함으로써 목록 내 각 항목의 데이터 속성을 이용해 트랜지션을 지연되도록 할 수 있습니다.
+JavaScript 트랜지션과 통신함으로써 목록 내 각 항목의 데이터 속성을 이용해 트랜지션을 스태거(stagger) 되도록 할 수 있습니다.
 
 ``` html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
