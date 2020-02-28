@@ -62,13 +62,13 @@ Vue.component('base-checkbox', {
 
 ## 네이티브 이벤트를 컴포넌트에 바인딩 하기
 
-There may be times when you want to listen directly to a native event on the root element of a component. In these cases, you can use the `.native` modifier for `v-on`:
+컴포넌트에서 루트 엘리먼트의 네이티브 이벤트를 직접 감지하고 싶은 경우가 있을 수 있습니다. 이 경우, `v-on`에 `.native` 수식어를 사용할 수 있습니다. 
 
 ```html
 <base-input v-on:focus.native="onFocus"></base-input>
 ```
 
-This can be useful sometimes, but it's not a good idea when you're trying to listen on a very specific element, like an `<input>`. For example, the `<base-input>` component above might refactor so that the root element is actually a `<label>` element:
+위와 같은 테크닉은 경우에 따라 유용하긴 하지만 `<input>` 과 같이 특수한 경우엔 좋지 않은 선택일 수 있습니다. 예를 들어, `<base-input>` 이라는 컴포넌트의 루트 엘리먼트가 실제로는 `<label>` 엘리먼트인 경우를 생각해 볼 수 있습니다.
 
 ```html
 <label>
@@ -81,9 +81,9 @@ This can be useful sometimes, but it's not a good idea when you're trying to lis
 </label>
 ```
 
-In that case, the `.native` listener in the parent would silently break. There would be no errors, but the `onFocus` handler wouldn't be called when we expected it to.
+이 경우  `.native` 수식어를 사용해 바인딩된 부모 엘리먼트의 리스너는 별다른 에러를 발생시키지 않으면서 `onFocus` 핸들러는 의도한 대로 동작하지 않을 것입니다.
 
-To solve this problem, Vue provides a `$listeners` property containing an object of listeners being used on the component. For example:
+이러한 문제를 해결하기 위해서 Vue는 컴포넌트에서 사용된 리스너를 포함하는 오브젝트인  `$listeners` 속성을 제공합니다. 예를 들어:
 
 ```js
 {
@@ -92,7 +92,7 @@ To solve this problem, Vue provides a `$listeners` property containing an object
 }
 ```
 
-Using the `$listeners` property, you can forward all event listeners on the component to a specific child element with `v-on="$listeners"`. For elements like `<input>`, that you also want to work with `v-model`, it's often useful to create a new computed property for listeners, like `inputListeners` below:
+ `$listeners` 속성을 이용하면 컴포넌트에서 `v-on=$listeners`를 이용해 부모 엘리먼트가 가진 이벤트 리스너를 특정 자식 엘리먼트에게 전달할 수 있습니다.  가령 `<input>`같은 엘리먼트에 `v-model` 를 적용하고 싶은 경우라면, 아래와 같이 `inputListeners`같은 새로운 computed 속성을 생성하여 유용하게 활용할 수 있습니다. 
 
 ```js
 Vue.component('base-input', {
@@ -101,14 +101,14 @@ Vue.component('base-input', {
   computed: {
     inputListeners: function () {
       var vm = this
-      // `Object.assign` merges objects together to form a new object
+      // `Object.assign` 는 오브젝트를 새로운 오브젝트로 병합합니다.
       return Object.assign({},
-        // We add all the listeners from the parent
+        // 우선 부모 엘리먼트의 모든 리스너를 추가합니다.
         this.$listeners,
-        // Then we can add custom listeners or override the
-        // behavior of some listeners.
+        // 그 다음, 기존 리스너를 override하는
+        // 커스텀 리스터를 추가할 수 있습니다. 
         {
-          // This ensures that the component works with v-model
+          // 아래 구문을 사용하면 v-model과 같이 동작하도록 만들 수 있습니다.
           input: function (event) {
             vm.$emit('input', event.target.value)
           }
@@ -129,7 +129,7 @@ Vue.component('base-input', {
 })
 ```
 
-Now the `<base-input>` component is a **fully transparent wrapper**, meaning it can be used exactly like a normal `<input>` element: all the same attributes and listeners will work, without the `.native` modifier.
+이제 `<base-input>` 컴포넌트는 **완전히 투명한** --즉, 일반적인 `<input>`과 완전히 동일하게 동작하는-- wrapper라고 볼 수 있습니다. 모든 속성과 리스너가 `.native` 수식어 없이도 기존과 동일하게 동작합니다.
 
 ## `.sync` 수식어
 
