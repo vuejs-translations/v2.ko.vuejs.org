@@ -210,7 +210,7 @@ methods: {
 
 > 2.3.0+ 이후 추가됨
 
-Vue also offers the `.passive` modifier, corresponding to [`addEventListener`'s `passive` option](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#Parameters).
+Vue는 [`addEventListener`의 `passive` option](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#Parameters)에 해당하는 `.passive` 수식어 또한 제공합니다.
 
 ``` html
 <!-- 스크롤의 기본 이벤트를 취소할 수 없습니다. -->
@@ -219,7 +219,7 @@ Vue also offers the `.passive` modifier, corresponding to [`addEventListener`'s 
 
 추가로, Vue는 `.passive` 수식어를 제공합니다. 특히 모바일 환경에서 성능향상에 도움이 됩니다. 예를 들어, 브라우저는 핸들러가 `event.preventDefault()`를 호출할지 알지 못하므로 프로세스가 완료된 후 스크롤 합니다. `.passive` 수식어는 이 이벤트가 기본 동작을 멈추지 않는다는 것을 브라우저에 알릴 수 있습니다.
 
-<p class="tip">`.passive`와 `.prevent`를 함께 사용하지 마세요. because `.prevent` will be ignored and your browser will probably show you a warning. Remember, `.passive` communicates to the browser that you _don't_ want to prevent the event's default behavior.</p>
+<p class="tip">`.passive`와 `.prevent`를 함께 사용하지 마세요.`.prevent`는 무시되고 브라우저는 오류를 발생시킬 것입니다. `.passive`는 당신이 이벤트의 기본 행동을 무시하지 _않기를 원하는_ 브라우저와 상호작용한다는 사실을 기억하세요.</p>
 
 ## 키 수식어
 
