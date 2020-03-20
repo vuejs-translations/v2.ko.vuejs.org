@@ -199,7 +199,7 @@ new Vue({
 
 <p class="tip">`<keep-alive>`가 컴포넌트에서 `name` 옵션을 사용하거나 로컬/글로벌 등록을 하여 정의된 모든 것들로 전환되고 있는 컴포넌트들을 요구한다는 것을 유의하세요.</p>
 
-더 자세한 내용은 [API reference](../api/#keep-alive)에서 `<keep-alive> 확인해주세요.
+더 자세한 내용은 [API reference](../api/#keep-alive)에서 `<keep-alive>` 확인해주세요.
 
 ## Async Components
 
