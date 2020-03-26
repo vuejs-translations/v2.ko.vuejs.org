@@ -149,15 +149,16 @@ post: {
 ></blog-post>
 ```
 
-## One-Way Data Flow
+## 단방향 데이터 흐름
 
-All props form a **one-way-down binding** between the child property and the parent one: when the parent property updates, it will flow down to the child, but not the other way around. This prevents child components from accidentally mutating the parent's state, which can make your app's data flow harder to understand.
+모든 prop들은 부모와 자식 사이에 **단방향으로 내려가는 바인딩** 형태를 취합니다: 부모의 속성이 변경되면 자식 속성에게 전달되지만, 반대 방향으로는 전달되지 않습니다. 자식의 데이터가 부모에게 전달되는 것을 막는 것은 자식 요소가 의도치 않게 부모 요소의 상태를 변경함으로써 앱의 데이터 흐름을 이해하기 어렵게 만드는 일을 막기 위해서입니다. 
 
-In addition, every time the parent component is updated, all props in the child component will be refreshed with the latest value. This means you should **not** attempt to mutate a prop inside a child component. If you do, Vue will warn you in the console.
+또한, 부모 컴포넌트가 업데이트될 때 마다 자식 요소의 모든 prop들이 최신 값으로 새로고침됩니다. 이는 곧 사용자가 prop을 자식 컴포넌트 안에서 수정해서는 안된다는 것이기도 합니다. 만약 수정을 시도하는 경우, Vue는 콘솔에 경고를 표시합니다. 
 
-There are usually two cases where it's tempting to mutate a prop:
+아래 두 경우가 주로 prop을 직접 변경하고 싶을 수 있는 상황의 예시입니다:
 
-1. **The prop is used to pass in an initial value; the child component wants to use it as a local data property afterwards.** In this case, it's best to define a local data property that uses the prop as its initial value:
+1. **prop은 초기값만 전달하고, 자식 컴포넌트는 그 초기값을 로컬 데이터 속성으로 활용하고 싶은 경우**
+   해당 경우에는 로컬 데이터 속성을 따로 선언하고 그 속성의 초기값으로써 prop을 사용하는 것이 가장 바람직합니다. 
 
   ``` js
   props: ['initialCounter'],
@@ -168,7 +169,9 @@ There are usually two cases where it's tempting to mutate a prop:
   }
   ```
 
-2. **The prop is passed in as a raw value that needs to be transformed.** In this case, it's best to define a computed property using the prop's value:
+2. **전달된 prop의 형태를 바꾸어야 하는 경우**
+
+   해당 경우에는 computed 속성을 사용하는 것이 가장 바람직합니다. 
 
   ``` js
   props: ['size'],
@@ -179,44 +182,44 @@ There are usually two cases where it's tempting to mutate a prop:
   }
   ```
 
-<p class="tip">Note that objects and arrays in JavaScript are passed by reference, so if the prop is an array or object, mutating the object or array itself inside the child component **will** affect parent state.</p>
+<p class="tip"> 자바스크립트 오브젝트나 배열을 prop으로 전달하는 경우, 객체를 복사하는 것이 아니라 참조하게 됩니다. 즉, 전달받은 오브젝트나 배열를 수정하게 되는 경우, 자식 요소가 부모 요소의 상태를 **변경하게 될 것**입니다.</p>
 
-## Prop Validation
+## Prop 유효성 검사
 
-Components can specify requirements for their props, such as the types you've already seen. If a requirement isn't met, Vue will warn you in the browser's JavaScript console. This is especially useful when developing a component that's intended to be used by others.
+앞에서 보신 것 처럼, 컴포넌트는 prop의 유효성 검사를 위해 요구사항을 특정할 수 있습니다. 요구사항이 충족되지 않은 경우 Vue는 브라우저의 자바스크립트 콘솔을 통해 경고를 표시합니다. 이는 다른 사람들도 사용하는 컴포넌트를 개발하는 경우에 특히 유용합니다. 
 
-To specify prop validations, you can provide an object with validation requirements to the value of `props`, instead of an array of strings. For example:
+Prop들의 유효성 검사를 위해서 `prop` 의 값에 배열이나 문자열 대신 오브젝트를 삽입할 수 있습니다. 예를 들어:
 
 ``` js
 Vue.component('my-component', {
   props: {
-    // Basic type check (`null` and `undefined` values will pass any type validation)
+    // 기본 타입 체크 (`Null`이나 `undefinded`는 모든 타입을 허용합니다.)
     propA: Number,
-    // Multiple possible types
+    // 여러 타입 허용
     propB: [String, Number],
-    // Required string
+    // 필수 문자열
     propC: {
       type: String,
       required: true
     },
-    // Number with a default value
+    // 기본값이 있는 숫자
     propD: {
       type: Number,
       default: 100
     },
-    // Object with a default value
+    // 기본값이 있는 오브젝트
     propE: {
       type: Object,
-      // Object or array defaults must be returned from
-      // a factory function
+      // 오브젝트나 배열은 꼭 기본값을 반환하는
+      // 팩토리 함수의 형태로 사용되어야 합니다. 
       default: function () {
         return { message: 'hello' }
       }
     },
-    // Custom validator function
+    // 커스텀 유효성 검사 함수
     propF: {
       validator: function (value) {
-        // The value must match one of these strings
+        // 값이 항상 아래 세 개의 문자열 중 하나여야 합니다. 
         return ['success', 'warning', 'danger'].indexOf(value) !== -1
       }
     }
@@ -224,13 +227,13 @@ Vue.component('my-component', {
 })
 ```
 
-When prop validation fails, Vue will produce a console warning (if using the development build).
+Prop 유효성 검사가 실패하는 경우, Vue는 콘솔에 주의 메세지를 띄웁니다. (개발용 빌드를 사용중인 경우에) 
 
-<p class="tip">Note that props are validated **before** a component instance is created, so instance properties (e.g. `data`, `computed`, etc) will not be available inside `default` or `validator` functions.</p>
+<p class="tip">Prop의 유효성 검사는 컴포넌트 인스턴스가 생성되기 전에 일어난다는 것을 기억하세요. 즉, 인스턴스의 값(e.g. `data`, `computed`, 등등)은 `default`나 `validator` 함수 안에 사용될 수 없습니다.</p>
 
 ### Type Checks
 
-The `type` can be one of the following native constructors:
+`type` 은 아래에 있는 네이티브 생성자중 하나가 될 수 있습니다. 
 
 - String
 - Number
@@ -241,7 +244,7 @@ The `type` can be one of the following native constructors:
 - Function
 - Symbol
 
-In addition, `type` can also be a custom constructor function and the assertion will be made with an `instanceof` check. For example, given the following constructor function exists:
+또한, `type` 에는 커스텀 생성자가 사용될 수도 있습니다. 확인은 `instanceof` 를 통해 이루어집니다. 예를 들어, 아래와 같은 생성자 함수가 선언되어 있다면:
 
 ```js
 function Person (firstName, lastName) {
@@ -250,7 +253,7 @@ function Person (firstName, lastName) {
 }
 ```
 
-You could use:
+아래와 같이 작성함으로써:
 
 ```js
 Vue.component('blog-post', {
@@ -260,7 +263,7 @@ Vue.component('blog-post', {
 })
 ```
 
-to validate that the value of the `author` prop was created with `new Person`.
+`author` prop이 `new Person`으로 생성된 값인지 확인할 수 있습니다. 
 
 ## Non-Prop Attributes
 
