@@ -272,7 +272,6 @@ Prop이 아닌 속성은 컴포넌트에 전달되긴 하지만 대응되는 pro
 
 예를 들어, `data-date-picker` 속성이 필요한 부트스트랩의 서드파티 컴포넌트인 `bootstrap-date-input` 을 사용하는 상황을 가정해 봅시다. 이 경우, 아래와 같이 컴포넌트 인스턴스에 속성을 추가해 줄 수 있습니다.
 
-For example, imagine we're using a 3rd-party `bootstrap-date-input` component with a Bootstrap plugin that requires a `data-date-picker` attribute on the `input`. We can add this attribute to our component instance:
 
 ``` html
 <bootstrap-date-input data-date-picker="activated"></bootstrap-date-input>
