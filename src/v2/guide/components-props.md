@@ -264,29 +264,30 @@ Vue.component('blog-post', {
 
 `author` prop이 `new Person`으로 생성된 값인지 확인할 수 있습니다. 
 
-## Non-Prop Attributes
+## Prop이 아닌 속성
 
-A non-prop attribute is an attribute that is passed to a component, but does not have a corresponding prop defined.
+Prop이 아닌 속성은 컴포넌트에 전달되긴 하지만 대응되는 prop이 정의되지 않습니다. 
 
-While explicitly defined props are preferred for passing information to a child component, authors of component libraries can't always foresee the contexts in which their components might be used. That's why components can accept arbitrary attributes, which are added to the component's root element.
+명확하게 정의된 prop을 통해서 자식 컴포넌트에 정보를 전달하는 것이 권장되긴 하지만, 컴포넌트 라이브러리를 만드는 등의 경우 어떤 맥락에서 해당 컴포넌트가 사용될지를 확실히 상정할 수 없는 경우가 있습니다. 이러한 경우에 대응하기 위해서 컴포넌트는 임의의 속성값을 받아와 컴포넌트의 루트 엘리먼트에 추가해 줄 수 있습니다. 
 
-For example, imagine we're using a 3rd-party `bootstrap-date-input` component with a Bootstrap plugin that requires a `data-date-picker` attribute on the `input`. We can add this attribute to our component instance:
+예를 들어, `data-date-picker` 속성이 필요한 부트스트랩의 서드파티 컴포넌트인 `bootstrap-date-input` 을 사용하는 상황을 가정해 봅시다. 이 경우, 아래와 같이 컴포넌트 인스턴스에 속성을 추가해 줄 수 있습니다.
+
 
 ``` html
 <bootstrap-date-input data-date-picker="activated"></bootstrap-date-input>
 ```
 
-And the `data-date-picker="activated"` attribute will automatically be added to the root element of `bootstrap-date-input`.
+`data-date-picker="activated"`속성은 `bootstrap-date-input`의 루트 엘리먼트에 자동으로 추가됩니다.
 
-### Replacing/Merging with Existing Attributes
+### 기존 속성의 대체 및 병합
 
-Imagine this is the template for `bootstrap-date-input`:
+아래 코드가  `bootstrap-date-input`의 템플릿이라고 생각해 봅시다:
 
 ``` html
 <input type="date" class="form-control">
 ```
 
-To specify a theme for our date picker plugin, we might need to add a specific class, like this:
+날짜 선택 플러그인의 테마를 설정하기 위해서는 아래와 같이 특정 클래스를 작성해 주어야 합니다. 
 
 ``` html
 <bootstrap-date-input
@@ -295,16 +296,17 @@ To specify a theme for our date picker plugin, we might need to add a specific c
 ></bootstrap-date-input>
 ```
 
-In this case, two different values for `class` are defined:
+이 경우, 두 개의 각각 다른 값이 `class`에 선언됩니다. 
 
-- `form-control`, which is set by the component in its template
-- `date-picker-theme-dark`, which is passed to the component by its parent
+- `form-control`: 컴포넌트 템플릿으로부터 부여됩니다.
 
-For most attributes, the value provided to the component will replace the value set by the component. So for example, passing `type="text"` will replace `type="date"` and probably break it! Fortunately, the `class` and `style` attributes are a little smarter, so both values are merged, making the final value: `form-control date-picker-theme-dark`.
+- `date-picker-theme-dark`: 컴포넌트의 부모로부터 전달받아 부여됩니다.
 
-### Disabling Attribute Inheritance
+대부분 속성의 경우, 전달받은 속성이 기존에 선언된 속성을 대체합니다. 예를 들어, `type="text"`를 `type="date"`가 선언된 컴포넌트에 전달하는 경우에는 속성이 대체되고 문제를 일으키게 될 가능성이 생깁니다. 하지만 다행히도 `class`와 `style` 속성의 경우에는 조금 더 똑똑하게 반응합니다. 즉, 앞의 `form-control`과 `date-picker-theme-dark`의 예제와 같이 두 개의 값이 합쳐져서 적용됩니다. 
 
-If you do **not** want the root element of a component to inherit attributes, you can set `inheritAttrs: false` in the component's options. For example:
+### 속성 상속 비활성화
+
+컴포넌트의 루트 엘리먼트가 상속된 속성을 **갖지 않기를** 원하는 경우, 컴포넌트에 `inheritAttrs: false` 옵션을 줄 수 있습니다. 예를 들어:
 
 ```js
 Vue.component('my-component', {
@@ -313,7 +315,7 @@ Vue.component('my-component', {
 })
 ```
 
-This can be especially useful in combination with the `$attrs` instance property, which contains the attribute names and values passed to a component, such as:
+이는 컴포넌트에 전달된 속성의 이름과 값을 가지고 있는 인스턴스 속성인 `$attrs`와 조합하면 유용하게 사용할 수 있습니다.
 
 ```js
 {
@@ -322,7 +324,7 @@ This can be especially useful in combination with the `$attrs` instance property
 }
 ```
 
-With `inheritAttrs: false` and `$attrs`, you can manually decide which element you want to forward attributes to, which is often desirable for [base components](../style-guide/#Base-component-names-strongly-recommended):
+`inheritAttrs: false` 와 `$attrs`를 이용하면 수동으로 전달할 속성을 선택할 수 있으며, 이는 스타일 규칙 중 [base components](../style-guide/#Base-component-names-strongly-recommended) 를 지키는 방법으로써 꽤 바람직합니다.
 
 ```js
 Vue.component('base-input', {
@@ -341,9 +343,9 @@ Vue.component('base-input', {
 })
 ```
 
-<p class="tip">Note that `inheritAttrs: false` option does **not** affect `style` and `class` bindings.</p>
+<p class="tip">`inheritAttrs: false` 옵션은 `style`과 `class`의 바인딩에 영향을 주지 **않는다는** 것을 기억하세요!</p>
 
-This pattern allows you to use base components more like raw HTML elements, without having to care about which element is actually at its root:
+이러한 패턴을 이용하면 기본 컴포넌트의 실제 루트를 크게 신경쓰지 않고도 기본 HTML 엘리먼트에 가깝게 사용할 수 있습니다. 
 
 ```html
 <base-input
