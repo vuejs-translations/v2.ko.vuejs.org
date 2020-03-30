@@ -4,11 +4,11 @@ type: cookbook
 order: 0
 ---
 
-## The Cookbook vs the Guide
+## 쿡북 vs 가이드
 
-How is the cookbook different from the guide? Why is this necessary?
+쿡북과 가이드는 어떻게 다른가요? 왜 이것이 필요한가요?
 
-* **Greater Focus**: In the guide, we're essentially telling a story. Each section builds on and assumes knowledge from each previous section. In the cookbook, each recipe can and should stand on its own. This means recipes can focus on one specific aspect of Vue, rather than having to give a general overview.
+* **더 나은 집중** 가이드에서는, 기본적으로 스토리를 기반으로 서술합니다. 각 섹션은 이전 섹션에서 얻은 지식을 가정해서 구성되어 있습니다. 쿡북에서는, 각 레시피들이 독립적으로 구성되어 있습니다. 그것은 레시피가 일반적인 개요를 제공하기보다 Vue의 특정 관점에 집중할 수 있다는 것을 뜻합니다.
 
 * **Greater Depth**: To avoid making the guide too long, we try to include only the simplest possible examples to help you understand each feature. Then we move on. In the cookbook, we can include more complex examples, combining features in interesting ways. Each recipe can also be as long and detailed as it needs to be, in order to fully explore its niche.
 
