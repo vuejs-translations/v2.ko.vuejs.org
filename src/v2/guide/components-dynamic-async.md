@@ -161,7 +161,7 @@ new Vue({
 </keep-alive>
 ```
 
-아래 결괴를 확인하세요. :
+아래 결과를 확인하세요. :
 
 {% raw %}
 
@@ -198,13 +198,11 @@ new Vue({
 이제 _Posts_ 탭은 (게시물이 선택된) 상태를 유지할 수 있고 심지어 렌더링하지 않습니다. 완성된 코드는 [this fiddle](https://jsfiddle.net/chrisvfritz/Lp20op9o/)에서 볼 수 있습니다.
 
 <p class="tip">`<keep-alive>`가 컴포넌트에서 `name` 옵션을 사용하거나 로컬/글로벌 등록을 하여 정의된 모든 것들로 전환되고 있는 컴포넌트들을 요구한다는 것을 유의하세요.</p>
-
 더 자세한 내용은 [API reference](../api/#keep-alive)에서 `<keep-alive>` 확인해주세요.
 
 ## Async Components
 
 <div class="vueschool"><a href="https://vueschool.io/lessons/dynamically-load-components?friend=vuejs" target="_blank" rel="sponsored noopener" title="Free Vue.js Async Components lesson">Watch a free video lesson on Vue School</a></div>
-
 In large applications, we may need to divide the app into smaller chunks and only load a component from the server when it's needed. To make that easier, Vue allows you to define your component as a factory function that asynchronously resolves your component definition. Vue will only trigger the factory function when the component needs to be rendered and will cache the result for future re-renders. For example:
 
 ```js
@@ -251,7 +249,6 @@ new Vue({
 ```
 
 <p class="tip">If you're a <strong>Browserify</strong> user that would like to use async components, its creator has unfortunately [made it clear](https://github.com/substack/node-browserify/issues/58#issuecomment-21978224) that async loading "is not something that Browserify will ever support." Officially, at least. The Browserify community has found [some workarounds](https://github.com/vuejs/vuejs.org/issues/620), which may be helpful for existing and complex applications. For all other scenarios, we recommend using Webpack for built-in, first-class async support.</p>
-
 ### Handling Loading State
 
 > New in 2.3.0+
