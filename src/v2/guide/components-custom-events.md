@@ -168,7 +168,5 @@ this.$emit('update:title', newTitle)
 
 위 구문은 `doc` 오브젝트의 각 속성(e.g.`title`)을 각각의 prop처럼 전달하고, 각각의 업데이트 리스너로써 `v-on` 을 추가합니다. 
 
-`v-bind.sync="{ title: doc.title }"`과 같은 
-
 <p class="tip"><code>v-bind.sync="{ title: doc.title }"</code>와 같은 리터럴 오브젝트는 <code>v-bind.sync</code> 이러한 복잡한 표현식을 파싱하는 과정에서 발생할 수 있는 극단적인 경우가 너무 많기 때문에 동작하지 않습니다.
 
