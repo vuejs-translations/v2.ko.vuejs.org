@@ -194,7 +194,7 @@ export default {
 </BaseButton>
 ```
 
-다행히 웹팩을 쓴다면([Vue CLI 3+](https://github.com/vuejs/vue-cli), which uses Webpack internally)을 쓴다면 그 안에 내장하고 있어요) `require.context`를 써서 자주 쓰는 기본 컴포넌트들을 전역 등록할 수 있습니다. 아래의 예시는 어플리케이션의 엔트리 파일(e.g. `src/main.js`)에 기본 컴포넌트들을 전역적으로 불러오는 코드입니다.
+다행히 웹팩을 쓴다면([Vue CLI 3+](https://github.com/vuejs/vue-cli)을 쓴다면 그 안에 내장하고 있어요) `require.context`를 써서 자주 쓰는 기본 컴포넌트들을 전역 등록할 수 있습니다. 아래의 예시는 어플리케이션의 엔트리 파일(e.g. `src/main.js`)에 기본 컴포넌트들을 전역적으로 불러오는 코드입니다.
 
 ```js
 import Vue from 'vue'
