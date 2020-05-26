@@ -69,8 +69,8 @@ Vue에 있는 컨텐트 배포 API는 `<slot>` 요소를 컨텐트 배포 통로
 <navigation-link url="/profile">
   Clicking here will send you to: {{ url }}
   <!--
-  `url`은 undefined로 나올 겁니다. 이 데이터는 <navigation-link>_로_
-  넘어가지만 <navigation-link> 컴포넌트 _안에_ 정의되어 있지는
+  url은 undefined로 나올 겁니다. 이 데이터는 <navigation-link>로
+  넘어가지만 <navigation-link> 컴포넌트 안에 정의되어 있지는
   않으니까요.
   -->
 </navigation-link>
@@ -143,7 +143,7 @@ Vue에 있는 컨텐트 배포 API는 `<slot>` 요소를 컨텐트 배포 통로
     <!-- 본문은 여기에 넣을 겁니다 -->
   </main>
   <footer>
-    <!-- 푸터는 여기에 넣을  -->
+    <!-- 푸터는 여기에 넣을 겁니다 -->
   </footer>
 </div>
 ```
@@ -269,7 +269,7 @@ Vue에 있는 컨텐트 배포 API는 `<slot>` 요소를 컨텐트 배포 통로
 
 ### 단독 디폴트 슬롯을 위한 축약 문법(Abbreviated Syntax for Lone Default Slots)
 
-위의 사례와 같이 제공된 내용이 디폴트 슬롯 _밖에_ 없으면 컴포넌트의 태그를 슬롯의 템플릿으로 바로 쓸 수 있습니다. 즉 `v-slot`을 컴포넌트에다 쓸 수 있다는 것입니다.(역자 주: 바로 위의 <current-user> 컴포넌트 코드와 비교하세요.)
+위의 사례와 같이 제공된 내용이 디폴트 슬롯 *밖에* 없으면 컴포넌트의 태그를 슬롯의 템플릿으로 바로 쓸 수 있습니다. 즉 `v-slot`을 컴포넌트에다 쓸 수 있다는 것입니다.(역자 주: 바로 위의 <current-user> 컴포넌트 코드와 비교하세요.)
 
 ``` html
 <current-user v-slot:default="slotProps">
@@ -297,7 +297,7 @@ Vue에 있는 컨텐트 배포 API는 `<slot>` 요소를 컨텐트 배포 통로
 </current-user>
 ```
 
-여러 개의 슬롯이 있을 때는 `<template>`에 기초한 문법 전체를 _모든_ 슬롯에 쓰기 바랍니다.
+여러 개의 슬롯이 있을 때는 `<template>`에 기초한 문법 전체를 *모든* 슬롯에 쓰기 바랍니다.
 
 ``` html
 <current-user>
