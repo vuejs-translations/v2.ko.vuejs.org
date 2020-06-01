@@ -53,9 +53,7 @@ this.$root.baz()
 
 `$root`와 비슷하게, `$parent` 속성을 사용하여 자식 요소에서 부모 인스턴스에 접근할 수 있습니다. 이는 prop을 이용해 데이터를 넘겨주는 것의 (조금 뒤떨어지는) 대안으로써 사용할 수 있습니다.
 
-Similar to `$root`, the `$parent` property can be used to access the parent instance from a child. This can be tempting to reach for as a lazy alternative to passing data with a prop.
-
-<p class="tip"> 대부분의 경우, 특히 부모 요소의 데이터를 자식 요소에서 변경하는 경우에 부모 요소에 접근하는 것은 디버깅과 코드 가독성을 크게 해칩니다. 나중에 해당 컴포넌트를 다시 보았을 때, 어디서 변경이 발생하였는지를 추적하는 것이 굉장히 어려워 질 수 있습니다.</p>
+<p class="tip"> 대부분의 경우, 특히 부모 요소의 데이터를 자식 요소에서 변경하는 경우에 부모 요소에 접근하는 것은 디버깅의 편의성과 코드 가독성을 크게 해칩니다. 나중에 해당 컴포넌트를 다시 보았을 때, 어디서 변경이 발생하였는지를 추적하는 것이 굉장히 어려워 질 수 있습니다.</p>
 
 하지만 가끔, 부분적으로 컴포넌트간의 공유가 *이루어져야 하는* 라이브러리가 존재합니다. 예를 들어, HTML을 렌더링하는 대신 JavaScript API와 통신하는  Google Maps 컴포넌트 같은 경우를 예로 들 수 있습니다:
 
