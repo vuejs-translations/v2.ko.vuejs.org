@@ -6,18 +6,18 @@ order: 106
 
 > 이 페이지는 여러분이 이미 [컴포넌트 기초](components.html)를 읽었다고 가정하고 쓴 내용입니다. 컴포넌트가 처음이라면 기초 문서를 먼저 읽으시기 바랍니다.
 
-<p class="tip">All the features on this page document the handling of edge cases, meaning unusual situations that sometimes require bending Vue's rules a little. Note however, that they all have disadvantages or situations where they could be dangerous. These are noted in each case, so keep them in mind when deciding to use each feature.</p>
+<p class="tip"> 해당 페이지의 모든 기능들은 일반적이지 않은 상황을 위해 Vue의 기본 규칙에서 조금 벗어나게 되는 예외적인 상황에 대한 것입니다. 이러한 경우들에 대해 명백한 단점이 존재하며, 위험요소로 작용할 수 있음을 명심하세요. 각 상황에 대해 어떤 위험요소가 있는지가 작성되어 있으므로, 아래의 예외들을 적용하기 전에 꼭 위험요소를 확인하고 기억하세요.<p>
 
-## Element & Component Access
+## 엘리먼트 & 컴포넌트 접근
 
-In most cases, it's best to avoid reaching into other component instances or manually manipulating DOM elements. There are cases, however, when it can be appropriate.
+대부분의 경우, 다른 컴포넌트에 접근하거나 직접 DOM 엘리먼트에 접근하는 것을 피하는 것이 좋습니다. 그럼에도 불구하고, 이러한 접근이 허용되는 경우가 있습니다. 
 
-### Accessing the Root Instance
+### 루트 엘리먼트에 접근하기
 
-In every subcomponent of a `new Vue` instance, this root instance can be accessed with the `$root` property. For example, in this root instance:
+`new Vue` 의 모든 하위 컴포넌트에서는 `$root` 속성을 이용해 루트 인스턴스에 접근할 수 있습니다. 예를 들어, 아래와 같은 루트 인스턴스가 있다면:
 
 ```js
-// The root Vue instance
+// 루트 Vue 인스턴스
 new Vue({
   data: {
     foo: 1
@@ -31,31 +31,31 @@ new Vue({
 })
 ```
 
-All subcomponents will now be able to access this instance and use it as a global store:
+모든 하위 컴포넌트에서 아래와 같이 접근할 수 있으며, 전역 저장소처럼 활용할 수 있습니다.
 
 ```js
-// Get root data
+// root의 데이터 가져오기
 this.$root.foo
 
-// Set root data
+// root의 데이터 수정하기
 this.$root.foo = 2
 
-// Access root computed properties
+// root의 computed 속성 접근하기
 this.$root.bar
 
-// Call root methods
+// root의 method 사용하기
 this.$root.baz()
 ```
 
-<p class="tip">This can be convenient for demos or very small apps with a handful of components. However, the pattern does not scale well to medium or large-scale applications, so we strongly recommend using <a href="https://github.com/vuejs/vuex">Vuex</a> to manage state in most cases.</p>
+<p class="tip">이러한 패턴은 아주 작은 크기의 어플리케이션이나 적은 수의 컴포넌트에 대해서 유용하게 사용될수는 있습니다. 하지만 어플리케이션의 크기가 커지게 될 때 해당 패턴을 확장하기란 쉬운 일이 아닙니다. 대부분의 경우, 상태 관리를 위해 <a href="https://github.com/vuejs/vuex">Vuex</a> 를 사용하는 것을 강력히 권장합니다..</p>
 
-### Accessing the Parent Component Instance
+### 부모 컴포넌트 인스턴스에 접근하기
 
-Similar to `$root`, the `$parent` property can be used to access the parent instance from a child. This can be tempting to reach for as a lazy alternative to passing data with a prop.
+`$root`와 비슷하게, `$parent` 속성을 사용하여 자식 요소에서 부모 인스턴스에 접근할 수 있습니다. 이는 prop을 이용해 데이터를 넘겨주는 것의 (조금 뒤떨어지는) 대안으로써 사용할 수 있습니다.
 
-<p class="tip">In most cases, reaching into the parent makes your application more difficult to debug and understand, especially if you mutate data in the parent. When looking at that component later, it will be very difficult to figure out where that mutation came from.</p>
+<p class="tip"> 대부분의 경우, 특히 부모 요소의 데이터를 자식 요소에서 변경하는 경우에 부모 요소에 접근하는 것은 디버깅의 편의성과 코드 가독성을 크게 해칩니다. 나중에 해당 컴포넌트를 다시 보았을 때, 어디서 변경이 발생하였는지를 추적하는 것이 굉장히 어려워 질 수 있습니다.</p>
 
-There are cases however, particularly shared component libraries, when this _might_ be appropriate. For example, in abstract components that interact with JavaScript APIs instead of rendering HTML, like these hypothetical Google Maps components:
+하지만 가끔, 부분적으로 컴포넌트간의 공유가 *이루어져야 하는* 라이브러리가 존재합니다. 예를 들어, HTML을 렌더링하는 대신 JavaScript API와 통신하는  Google Maps 컴포넌트 같은 경우를 예로 들 수 있습니다:
 
 ```html
 <google-map>
@@ -63,9 +63,9 @@ There are cases however, particularly shared component libraries, when this _mig
 </google-map>
 ```
 
-The `<google-map>` component might define a `map` property that all subcomponents need access to. In this case `<google-map-markers>` might want to access that map with something like `this.$parent.getMap`, in order to add a set of markers to it. You can see this pattern [in action here](https://jsfiddle.net/chrisvfritz/ttzutdxh/).
+이 `<google-map>` 컴포넌트는 모든 하위 컴포넌트가 접근할 수 있어야 하는 `map` 속성을 가져야 합니다. 위의 경우, `<google-map-marker>`가 `this.$parent.getMap`과 같은 방식으로 map에 접근할 수 있어야 정상적으로 마커를 추가할 수 있을 것입니다. [여기](https://jsfiddle.net/chrisvfritz/ttzutdxh/) 에서 해당 패턴을 좀 더 자세히 확인할 수 있습니다. 
 
-Keep in mind, however, that components built with this pattern are still inherently fragile. For example, imagine we add a new `<google-map-region>` component and when `<google-map-markers>` appears within that, it should only render markers that fall within that region:
+본질적으로 위와 같은 패턴은 여전히 취약하다는 것을 기억하세요. 예를 들어, `<google-map-region>` 컴포넌트를 추가하고 `<google-map-markers>` 컴포넌트가 그 지역 안에서만 마커를 렌더링 할 수도 있도록 구조를 변경한다고 가정해 봅시다.
 
 ```html
 <google-map>
@@ -75,13 +75,13 @@ Keep in mind, however, that components built with this pattern are still inheren
 </google-map>
 ```
 
-Then inside `<google-map-markers>` you might find yourself reaching for a hack like this:
+이 경우, `<google-map-markers>` 안에 아래와 같은 코드를 쓰게 될 것입니다.
 
 ```js
 var map = this.$parent.map || this.$parent.$parent.map
 ```
 
-This has quickly gotten out of hand. That's why to provide context information to descendent components arbitrarily deep, we instead recommend [dependency injection](#Dependency-Injection).
+이러한 패턴은 금세 더 이상 손댈 수 없게 변하게 됩니다. 이러한 이유로, 임의의 깊이를 가진 하위 요소에게 컨텍스트 정보를 제공하기 위한 방법으로써 위 패턴 대신에 [의존성 주입](#Dependency-Injection)을 사용하는 것이 권장됩니다.
 
 ### Accessing Child Component Instances & Child Elements
 
