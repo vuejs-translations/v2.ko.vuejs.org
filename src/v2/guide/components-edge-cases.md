@@ -6,7 +6,9 @@ order: 106
 
 > 이 페이지는 여러분이 이미 [컴포넌트 기초](components.html)를 읽었다고 가정하고 쓴 내용입니다. 컴포넌트가 처음이라면 기초 문서를 먼저 읽으시기 바랍니다.
 
-<p class="tip"> 해당 페이지의 모든 기능들은 일반적이지 않은 상황을 위해 Vue의 기본 규칙에서 조금 벗어나게 되는 예외적인 상황에 대한 것입니다. 이러한 경우들에 대해 명백한 단점이 존재하며, 위험요소로 작용할 수 있음을 명심하세요. 각 상황에 대해 어떤 위험요소가 있는지가 작성되어 있으므로, 아래의 예외들을 적용하기 전에 꼭 위험요소를 확인하고 기억하세요.<p>
+<p class="tip"> 해당 페이지의 모든 기능들은 일반적이지 않은 상황을 위해 Vue의 기본 규칙에서 조금 벗어나게 되는 예외적인 상황에 대한 것입니다. 이러한 경우들에 대해 명백한 단점이 존재하며, 위험요소로 작용할 수 있음을 명심하세요. 각 상황에 대해 어떤 위험요소가 있는지가 작성되어 있으므로, 아래의 예외들을 적용하기 전에 꼭 위험요소를 확인하고 기억하세요.</p>
+
+  
 
 ## 엘리먼트 & 컴포넌트 접근
 
@@ -81,29 +83,29 @@ this.$root.baz()
 var map = this.$parent.map || this.$parent.$parent.map
 ```
 
-이러한 패턴은 금세 더 이상 손댈 수 없게 변하게 됩니다. 이러한 이유로, 임의의 깊이를 가진 하위 요소에게 컨텍스트 정보를 제공하기 위한 방법으로써 위 패턴 대신에 [의존성 주입](#Dependency-Injection)을 사용하는 것이 권장됩니다.
+이러한 패턴은 금세 더 이상 손댈 수 없게 변하게 됩니다. 이러한 이유로, 임의의 깊이를 가진 하위 요소에게 컨텍스트 정보를 제공하기 위한 방법으로써 위 패턴 대신에 [의존성 주입](#의존성-주입)을 사용하는 것이 권장됩니다.
 
-### Accessing Child Component Instances & Child Elements
+### 자식 컴포넌트의 인스턴스 및 요소에 접근하기
 
-Despite the existence of props and events, sometimes you might still need to directly access a child component in JavaScript. To achieve this you can assign a reference ID to the child component using the `ref` attribute. For example:
+물론 props와 events가 존재하지만, 가끔 JavaScript에서 자식 요소에 직접 접근해야 하는 경우가 있습니다. 이 경우, `ref` 속성을 이용해 자식 요소에 레퍼런스 ID를 할당하여 해결할 수 있습니다. 예를 들어:
 
 ```html
 <base-input ref="usernameInput"></base-input>
 ```
 
-Now in the component where you've defined this `ref`, you can use:
+이제 `ref`를 이용해 ID를 정의한 컴포넌트 안에서 아래와 같이 작성하면:
 
 ```js
 this.$refs.usernameInput
 ```
 
-to access the `<base-input>` instance. This may be useful when you want to, for example, programmatically focus this input from a parent. In that case, the `<base-input>` component may similarly use a `ref` to provide access to specific elements inside it, such as:
+ `<base-input>` 인스턴스에 접근할 수 있습니다. 이러한 방식은 필요에 따라서 유용할 수 있습니다. 예를 들어, 프로그래밍적으로 부모요소에서 자식 요소 내부의 input 요소에 focus를 부여하고 싶은 경우를 생각해 봅시다. 이 경우 `<base-input>` 컴포넌트에서도 `ref`를 사용함으로써 특정 요소에 접근할 수 있습니다. 예를 들어 `<base-input>` 내에
 
 ```html
 <input ref="input">
 ```
 
-And even define methods for use by the parent:
+와 같이 작성되어 있고 부모요소에서 아래와 같은 메소드를 작성함으로써:
 
 ```js
 methods: {
@@ -114,19 +116,19 @@ methods: {
 }
 ```
 
-Thus allowing the parent component to focus the input inside `<base-input>` with:
+부모요소에서 `<base-input>` 내부의 input에 focus되도록 하기 위해 아래와 같이 작성할 수 있습니다.
 
 ```js
 this.$refs.usernameInput.focus()
 ```
 
-When `ref` is used together with `v-for`, the ref you get will be an array containing the child components mirroring the data source.
+`ref` 를 `v-for` 와 함께 사용하는 경우에는 ref는 데이터 소스를 미러링하는 자식 컴포넌트를 포함하는 배열을 얻게 됩니다.
 
-<p class="tip"><code>$refs</code> are only populated after the component has been rendered, and they are not reactive. It is only meant as an escape hatch for direct child manipulation - you should avoid accessing <code>$refs</code> from within templates or computed properties.</p>
+<p class="tip"><code>$refs</code> 는 컴포넌트가 렌더링 된 후에 접근할 수 있으며, 반응형이 아닙니다. 즉, 직접적인 자식 요소 제어에만 유효합니다 - <code>$refs</code>를 template나 computed 속성 안에 포함시키지 않는 것이 좋습니다.</p>
 
-### Dependency Injection
+### 의존성 주입
 
-Earlier, when we described [Accessing the Parent Component Instance](#Accessing-the-Parent-Component-Instance), we showed an example like this:
+이전에 [부모 컴포넌트 인스턴스에 접근하기](#부모-컴포넌트-인스턴스에-접근하기)에서 아래와 같은 예제를 다루었습니다.
 
 ```html
 <google-map>
@@ -136,9 +138,9 @@ Earlier, when we described [Accessing the Parent Component Instance](#Accessing-
 </google-map>
 ```
 
-In this component, all descendants of `<google-map>` needed access to a `getMap` method, in order to know which map to interact with. Unfortunately, using the `$parent` property didn't scale well to more deeply nested components. That's where dependency injection can be useful, using two new instance options: `provide` and `inject`.
+이 컴포넌트에서, `<google-map>`의 모든 하위 자식들은 어떤 지도와 상호작용해야 하는지를 알기 위해  `getMap` 메소드에 접근할 수 있었어야 했습니다. 불행히도 `$parent` 속성은 여러 번 중첩된 컴포넌트에 대해서 확장 가능한 방법이 아니었습니다. 이 경우, `provide` 와 `inject` 두 개의 옵션을 사용하는 의존성 주입을 유용하게 사용할 수 있습니다.
 
-The `provide` options allows us to specify the data/methods we want to **provide** to descendent components. In this case, that's the `getMap` method inside `<google-map>`:
+`provide` 옵션은 모든 하위 자식들에게 **제공하고자 하는** data 및 methods를 특정할 수 있게 해 줍니다. 이 경우에는 `<google-map>` 안의 `getMap` 메소드가 제공하고자 하는 메소드입니다.
 
 ```js
 provide: function () {
@@ -148,22 +150,22 @@ provide: function () {
 }
 ```
 
-Then in any descendants, we can use the `inject` option to receive specific properties we'd like to add to that instance:
+이제 모든 하위 자식들에서 `inject` 옵션을 이용해 특정 속성을 받아 추가할 수 있도록 할 수 있습니다:
 
 ```js
 inject: ['getMap']
 ```
 
-You can see the [full example here](https://jsfiddle.net/chrisvfritz/tdv8dt3s/). The advantage over using `$parent` is that we can access `getMap` in _any_ descendant component, without exposing the entire instance of `<google-map>`. This allows us to more safely keep developing that component, without fear that we might change/remove something that a child component is relying on. The interface between these components remains clearly defined, just as with `props`.
+전체 예제 코드는 [여기](https://jsfiddle.net/chrisvfritz/tdv8dt3s/)에서 볼 수 있습니다. `$parent` 를 사용하는 것에 비해서 얻을 수 있는 이점은 이제 모든 하위 자식에서 `<google-map>` 의 모든 요소에 접근하지 않고도  `getMap` 메소드에 접근할 수 있다는 것입니다. 이는 컴포넌트를 개발할 때 자식 요소가 의존성을 갖는 바꾸거나 제거할 수도 있다는 두려움 없이 안전하게 개발할 수 있도록 해 줍니다. 컴포넌트들 사이의 인터페이스는 `props` 로써 명료하게 정의되어 있게 됩니다.
 
-In fact, you can think of dependency injection as sort of "long-range props", except:
+사실 의존성 주입은 아래의 것들을 제외하면 "장거리 props"라고 생각할 수 있습니다:
 
-* ancestor components don't need to know which descendants use the properties it provides
-* descendant components don't need to know where injected properties are coming from
+* 조상 컴포넌트는 어떤 자손 컴포넌트가 제공한 속성을 사용했는지 알 필요가 없습니다.
+* 자손 컴포넌트는 inject된 속성이 어디에서 왔는지 알 필요가 없습니다.
 
-<p class="tip">However, there are downsides to dependency injection. It couples components in your application to the way they're currently organized, making refactoring more difficult. Provided properties are also not reactive. This is by design, because using them to create a central data store scales just as poorly as <a href="#Accessing-the-Root-Instance">using <code>$root</code></a> for the same purpose. If the properties you want to share are specific to your app, rather than generic, or if you ever want to update provided data inside ancestors, then that's a good sign that you probably need a real state management solution like <a href="https://github.com/vuejs/vuex">Vuex</a> instead.</p>
+<p class="tip"> 의존성 주입에도 안좋은 면이 있습니다. 의존성 주입은 어플리케이션 안의 컴포넌트들을 현재의 구조로 묶으며, 리팩토링을 어렵게 만듭니다. 전달된 속성들 또한 반응형이 아닙니다. 이는 디자인적으로 의존성 주입을 중앙 집중형 데이터 저장소로 사용하는 것이 <a href="#루트-엘리먼트에-접근하기">루트 엘리먼트에 접근하기</a>에 언급된 것과 같은 이유로 확장에 용이하지 않다는 뜻입니다. 공유하고자 하는 속성이 일반적이지 않고 앱에 특정되어 있거나 조상 요소로부터 제공된 데이터를 수정할 필요가 있다면 <a href="https://github.com/vuejs/vuex">Vuex</a>와 같은 실제 상태 관리 솔루션이 필요하다는 좋은 신호입니다.</p>
 
-Learn more about dependency injection in [the API doc](https://vuejs.org/v2/api/#provide-inject).
+의존성 주입에 대해서 [API 문서](https://vuejs.org/v2/api/#provide-inject) 에서 더 알아보세요.
 
 ## Programmatic Event Listeners
 
