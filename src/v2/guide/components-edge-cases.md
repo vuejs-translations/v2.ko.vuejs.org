@@ -167,39 +167,41 @@ inject: ['getMap']
 
 의존성 주입에 대해서 [API 문서](https://vuejs.org/v2/api/#provide-inject) 에서 더 알아보세요.
 
-## Programmatic Event Listeners
+## 프로그래밍적 이벤트 리스터
+
+지금까지 본 `$emit`을 사용하고 `v-on` 으로 듣는 방법 외에도 Vue 인스턴스는 또다른 이벤트 인터페이스 사용 방법을 가지고 있습니다. 우리는 다음과 같이 작성할 수 있습니다:
 
 So far, you've seen uses of `$emit`, listened to with `v-on`, but Vue instances also offer other methods in its events interface. We can:
 
-- Listen for an event with `$on(eventName, eventHandler)`
-- Listen for an event only once with `$once(eventName, eventHandler)`
-- Stop listening for an event with `$off(eventName, eventHandler)`
+- `$on(eventName, eventHandler)` 을 이용한 이벤트 청취
+- `$once(eventName, eventHandler)` 를 이용한 단발성 이벤트 청취
+- `$off(eventName, eventHandler)` 를 이용한 이벤트 청취 중단
 
-You normally won't have to use these, but they're available for cases when you need to manually listen for events on a component instance. They can also be useful as a code organization tool. For example, you may often see this pattern for integrating a 3rd-party library:
+위의 방법들은 일반적으로 사용할 일이 없지만 컴포넌트 인스턴스 안의 이벤트를 수동적으로 청취하고자 하는 경우에 사용할 수 있습니다. 또한 코드를 조직화하는 도구로써 유용하게 사용될 수 있습니다. 예를 들어, 아래와 같이 서드파티 라이브러리를 사용하는 경우가 있습니다:
 
 ```js
-// Attach the datepicker to an input once
-// it's mounted to the DOM.
+// datepicker를 input에 한 번 연결합니다.
+// DOM에 직접 연결됩니다.
 mounted: function () {
-  // Pikaday is a 3rd-party datepicker library
+  // Pikaday는 서드파티 라이브러리입니다.
   this.picker = new Pikaday({
     field: this.$refs.input,
     format: 'YYYY-MM-DD'
   })
 },
-// Right before the component is destroyed,
-// also destroy the datepicker.
+// 컴포넌트를 destroy하기 직전에
+// datepicker를 destroy합니다.
 beforeDestroy: function () {
   this.picker.destroy()
 }
 ```
 
-This has two potential issues:
+이는 두 가지의 잠재적 이슈를 갖습니다:
 
-- It requires saving the `picker` to the component instance, when it's possible that only lifecycle hooks need access to it. This isn't terrible, but it could be considered clutter.
-- Our setup code is kept separate from our cleanup code, making it more difficult to programmatically clean up anything we set up.
+- 라이프사이클 훅에서만 `picker`에 접근할 수 있는 경우, `picker` 가 컴포넌트 인스턴스 안에 저장되어야 합니다. 끔찍한 정도는 아니지만, 다소 어색하게 느껴질 수 있습니다.
+- 셋업을 위한 코드와 제거를 위한 코드가 분리되어 있기에 무언가를 제거하거나 설치하는데 있어 (프로그래밍적으로) 어려워집니다.
 
-You could resolve both issues with a programmatic listener:
+프로그래밍적 리스너를 이용하면 위 두 가지 이슈를 모두 해결할 수 있습니다:
 
 ```js
 mounted: function () {
@@ -214,7 +216,7 @@ mounted: function () {
 }
 ```
 
-Using this strategy, we could even use Pikaday with several input elements, with each new instance automatically cleaning up after itself:
+이러한 방법을 이용하면 우리는 Pikaday를 가양한 input 엘리먼트에 사용할 수 있으며, 각각의 새로운 인스턴스는 사용되고 난 후 자동으로, 스스로 이를 정리합니다:
 
 ```js
 mounted: function () {
@@ -235,23 +237,25 @@ methods: {
 }
 ```
 
-See [this fiddle](https://jsfiddle.net/09jvu65m/) for the full code. Note, however, that if you find yourself having to do a lot of setup and cleanup within a single component, the best solution will usually be to create more modular components. In this case, we'd recommend creating a reusable `<input-datepicker>` component.
+전체 코드를 확인하려면 [여기](https://jsfiddle.net/09jvu65m/)를 확인하세요. 만일 스스로가 단일 컴포넌트를 셋업하고 제거하는 과정을 여러 번 반복하고 있는 경우, 모듈화된 컴포넌트가 가장 좋은 솔루션일 수 있다는 사실을 기억해 두세요. 위의 경우에는 재사용 가능한 `<input-datepicker>` 컴포넌트를 만드는 것을 추천합니다.
 
-To learn more about programmatic listeners, check out the API for [Events Instance Methods](https://vuejs.org/v2/api/#Instance-Methods-Events).
+프로그래밍적 이벤트 리스너에 대해서 더 학습하고 싶다면 API 문서의 [Events Instance Methods](https://vuejs.org/v2/api/#Instance-Methods-Events) 를 확인 해 보세요.
 
-<p class="tip">Note that Vue's event system is different from the browser's <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget">EventTarget API</a>. Though they work similarly, <code>$emit</code>, <code>$on</code>, and <code>$off</code> are <strong>not</strong> aliases for <code>dispatchEvent</code>, <code>addEventListener</code>, and <code>removeEventListener</code>.</p>
 
-## Circular References
 
-### Recursive Components
+<p class="tip"> Vue의 이벤트 시스템은 브라우저의 <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget">EventTarget API</a>와는 다르다는 사실을 기억하세요. 비슷하게 동작하기는 하지만, <code>$emit</code>, <code>$on</code>, and <code>$off</code> 는 <code>dispatchEvent</code>, <code>addEventListener</code>, and <code>removeEventListener</code>의 축약어가 <strong>아닙니다.</strong></p>
 
-Components can recursively invoke themselves in their own template. However, they can only do so with the `name` option:
+## 순환 참조
+
+### 재귀 컴포넌트
+
+컴포넌트는 재귀적으로 템플릿 안에서 호출될 수 있습니다. 하지만 `name` 옵션을 이용해서만 호출될 수 있습니다:
 
 ``` js
 name: 'unique-name-of-my-component'
 ```
 
-When you register a component globally using `Vue.component`, the global ID is automatically set as the component's `name` option.
+`Vue.component`를 이용해 컴포넌트를 전역으로 등록하는 경우, 전역 ID는 자동으로 컴포넌트의 `name` 옵션의 값으로 설정됩니다.
 
 ``` js
 Vue.component('unique-name-of-my-component', {
@@ -259,18 +263,18 @@ Vue.component('unique-name-of-my-component', {
 })
 ```
 
-If you're not careful, recursive components can also lead to infinite loops:
+주의하지 않으면 재귀 컴포넌트는 무한루프를 발생시킬 수도 있습니다.
 
 ``` js
 name: 'stack-overflow',
 template: '<div><stack-overflow></stack-overflow></div>'
 ```
 
-A component like the above will result in a "max stack size exceeded" error, so make sure recursive invocation is conditional (i.e. uses a `v-if` that will eventually be `false`).
+위와 같은 컴포넌트는 "max stack size exceeded(최대 스택 사이즈가 초과되었습니다)" 에러를 출력하므로, 재귀적 호출에 올바른 조건이 설정되어있는지 확인하여야 합니다. (예: `v-if` 에 최종적으로 `false`가 들어가는가?)
 
-### Circular References Between Components
+### 두 컴포넌트 사이의 순환 참조
 
-Let's say you're building a file directory tree, like in Finder or File Explorer. You might have a `tree-folder` component with this template:
+Finder나 File Explorer 같은 파일 디렉토리 트리를 만드는 경우를 생각해 봅시다. 아마 아래와 같은 `tree-foler` 컴포넌트를 만들었을 것입니다:
 
 ``` html
 <p>
@@ -279,7 +283,7 @@ Let's say you're building a file directory tree, like in Finder or File Explorer
 </p>
 ```
 
-Then a `tree-folder-contents` component with this template:
+그리고 `tree-folder-contents` 컴포넌트는 아래와 같은 템플릿을 가지고 있을 것입니다:
 
 ``` html
 <ul>
@@ -290,17 +294,17 @@ Then a `tree-folder-contents` component with this template:
 </ul>
 ```
 
-When you look closely, you'll see that these components will actually be each other's descendent _and_ ancestor in the render tree - a paradox! When registering components globally with `Vue.component`, this paradox is resolved for you automatically. If that's you, you can stop reading here.
+자세히 보면 이 컴포넌트들이 실제로는 서로의 후손이면서 조상이라는 것을 알 수 있습니다 - 패러독스죠! 만약 당신이 `Vue.component`를 이용해서 컴포넌트를 전역으로 등록하는 경우에 이 패러독스는 자연스럽게 해결됩니다. 이렇게 문제가 해결되었다면 여기까지만 읽어도 괜찮습니다.
 
-However, if you're requiring/importing components using a __module system__, e.g. via Webpack or Browserify, you'll get an error:
+하지만 만약에 **모듈 시스템**을 이용해(즉, Webpack이나 Browserify를 이용해) require 혹은 import를 시도한 경우, 아래와 같은 에러가 발생합니다:
 
 ```
 Failed to mount component: template or render function not defined.
 ```
 
-To explain what's happening, let's call our components A and B. The module system sees that it needs A, but first A needs B, but B needs A, but A needs B, etc. It's stuck in a loop, not knowing how to fully resolve either component without first resolving the other. To fix this, we need to give the module system a point at which it can say, "A needs B _eventually_, but there's no need to resolve B first."
+무슨 일이 일어났는지를 설명하기 위해서, 우리의 컴포넌트를 A와 B라고 부르겠습니다. 모듈 시스템의 입장에서는 A가 필요한데 A는 B가 필요하고, 다시 B는 A가 필요하고, 하지만 A는 B가 필요하고, 기타 많은 것들(...)이 필요하게 됩니다. 즉, 두 컴포넌트 모두 다른 컴포넌트 하나가 정의되기 전에 정의될 수 없는 루프에 빠지는 것입니다. 이를 해결하기 위해서는 모듈 시스템에 "결과적으로 A는 B를 필요로 하게 되지만, B를 우선적으로 정의할 필요는 없다"라는 사실을 전달하여야 합니다.
 
-In our case, let's make that point the `tree-folder` component. We know the child that creates the paradox is the `tree-folder-contents` component, so we'll wait until the `beforeCreate` lifecycle hook to register it:
+본 예시에서는 `tree-folder` 컴포넌트에 포인트를 만들어 봅시다.  `tree-folder-component` 컴포넌트가 패러독스를 발생시키는 자식요소라는 것을 알고 있으므로, `beforeCreate` 라이프사이클 훅이 호출되기를 기다렸다가 컴포넌트를 등록합니다:
 
 ``` js
 beforeCreate: function () {
@@ -308,7 +312,7 @@ beforeCreate: function () {
 }
 ```
 
-Or alternatively, you could use Webpack's asynchronous `import` when you register the component locally:
+또는 컴포넌트를 지역적으로 등록할 때 Webpack의 비동기 `import` 를 사용하는 방법도 있습니다:
 
 ``` js
 components: {
@@ -316,7 +320,7 @@ components: {
 }
 ```
 
-Problem solved!
+문제가 해결되었습니다!
 
 ## Alternate Template Definitions
 
