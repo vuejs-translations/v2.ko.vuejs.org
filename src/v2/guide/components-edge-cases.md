@@ -1,5 +1,5 @@
 ---
-title: Handling Edge Cases
+title: 예외적인 상황들
 type: guide
 order: 106
 ---
