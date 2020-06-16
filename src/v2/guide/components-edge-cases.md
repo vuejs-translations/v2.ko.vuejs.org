@@ -1,5 +1,5 @@
 ---
-title: Handling Edge Cases
+title: 예외적인 상황들
 type: guide
 order: 106
 ---
@@ -322,28 +322,28 @@ components: {
 
 문제가 해결되었습니다!
 
-## Alternate Template Definitions
+## 템플릿을 정의하는 다른 방법
 
-### Inline Templates
+### 인라인 템플릿
 
-When the `inline-template` special attribute is present on a child component, the component will use its inner content as its template, rather than treating it as distributed content. This allows more flexible template-authoring.
+특수한 속성인 `inline-template`가 자식 컴포넌트에 존재하는 경우, 컴포넌트는 이를 분리된 컨텐츠로 보지 않고 현재 템플릿 안에 있는 컨텐츠로 취급합니다. 이는 좀 더 유연한 템플릿 설계가 가능하게 합니다.
 
 ``` html
 <my-component inline-template>
   <div>
-    <p>These are compiled as the component's own template.</p>
-    <p>Not parent's transclusion content.</p>
+    <p>이는 컴포넌트 자신의 템플릿으로써 컴파일되었습니다.</p>
+    <p>부모에 인용된 컨텐츠가 아닙니다.</p>
   </div>
 </my-component>
 ```
 
-Your inline template needs to be defined inside the DOM element to which Vue is attached.
+인라인 템플릿은 Vue가 연결된 DOM 엘리먼트 내부에 정의되어야 합니다.
 
-<p class="tip">However, <code>inline-template</code> makes the scope of your templates harder to reason about. As a best practice, prefer defining templates inside the component using the <code>template</code> option or in a <code>&lt;template&gt;</code> element in a <code>.vue</code> file.</p>
+<p class="tip"><code>inline-template</code>을 사용하게 되면 템플릿의 스코프를 쉽게 파악할 수 없게 됩니다. <code>template</code> 옵션을 사용하거나 .vue 파일 안에 있는 <code>&lt;template&gt;</code> 엘리먼트 내부에 템플릿을 정의하는 방법을 권장합니다.</p>
 
 ### X-Templates
 
-Another way to define templates is inside of a script element with the type `text/x-template`, then referencing the template by an id. For example:
+템플릿을 스크립트 엘리먼트 안에 정의하는 또다른 방법으로써, `text/x-template` 타입을 이용해 템플릿을 id로 참조할 수 있습니다. 예를 들어:
 
 ``` html
 <script type="text/x-template" id="hello-world-template">
@@ -357,35 +357,35 @@ Vue.component('hello-world', {
 })
 ```
 
-Your x-template needs to be defined outside the DOM element to which Vue is attached.
+작성한 x-template는 Vue가 연결된 DOM 엘리먼트의 바깥에서 정의되어야 합니다.
 
-<p class="tip">These can be useful for demos with large templates or in extremely small applications, but should otherwise be avoided, because they separate templates from the rest of the component definition.</p>
+<p class="tip">이러한 방법은 커다란 템플릿의 데모나 매우 작은 어플리케이션에 유용할 수는 있지만, 템플릿과 컴포넌트의 나머지 부분들을 분리시키기 때문에 가급적이면 피하는 것이 좋습니다.</p>
 
-## Controlling Updates
+## 업데이트 제어
 
-Thanks to Vue's Reactivity system, it always knows when to update (if you use it correctly). There are edge cases, however, when you might want to force an update, despite the fact that no reactive data has changed. Then there are other cases when you might want to prevent unnecessary updates.
+Vue의 반응형 시스템 덕분에, (제대로 사용했다면) 업데이트 될 타이밍을 항상 알 수 있습니다. 하지만 반응형 데이터가 변경되지 않았음에도 예외적으로 컴포넌트를 강제 업데이트 해야하는 예외적인 경우들이 있습니다. 반대로, 불필요한 업데이트를 방지해야 하는 경우도 있을 수 있습니다.
 
-### Forcing an Update
+### 업데이트 강제하기
 
-<p class="tip">If you find yourself needing to force an update in Vue, in 99.99% of cases, you've made a mistake somewhere.</p>
+<p class="tip">만약에 Vue에서 강제 업데이트를 시도하고 계신다면, 99.99%의 경우는 어딘가 잘못된 것입니다</p>
 
-You may not have accounted for change detection caveats [with arrays](https://vuejs.org/v2/guide/list.html#Caveats) or [objects](https://vuejs.org/v2/guide/list.html#Object-Change-Detection-Caveats), or you may be relying on state that isn't tracked by Vue's reactivity system, e.g. with `data`.
+[배열](https://vuejs.org/v2/guide/list.html#Caveats) 이나 [오브젝트](https://vuejs.org/v2/guide/list.html#Object-Change-Detection-Caveats)를 이용한 반응형 시스템에 변경 감지 주의사항을 설정하지 않았거나, `data` 와 같은 뷰의 반응형 시스템이 추적하지 못하는 상태에 의존하고 있는 경우가 있습니다.
 
-However, if you've ruled out the above and find yourself in this extremely rare situation of having to manually force an update, you can do so with [`$forceUpdate`](../api/#vm-forceUpdate).
+하지만 극히 드문 경우로써, 위의 경우에 해당하지 않지만 데이터를 강제로 업데이트 해야 하는 경우, [`$forceUpdate`](../api/#vm-forceUpdate)를 사용할 수 있습니다.
 
-### Cheap Static Components with `v-once`
+### `v-once`를 사용하는 정적 컴포넌트
 
-Rendering plain HTML elements is very fast in Vue, but sometimes you might have a component that contains **a lot** of static content. In these cases, you can ensure that it's only evaluated once and then cached by adding the `v-once` directive to the root element, like this:
+Vue는 순수한 HTML 엘리먼트를 아주 빠르게 렌더링할 수 있지만, 간혹 컴포넌트가 **많은** 정적 콘텐츠를 가지고 있을 수 있습니다. 이 경우, 루트 엘리먼트에 `v-once` 디렉티브를 적용하여 한 번 렌더링된 후 캐싱되도록 할 수 있습니다.
 
 ``` js
 Vue.component('terms-of-service', {
   template: `
     <div v-once>
       <h1>Terms of Service</h1>
-      ... a lot of static content ...
+      ... 수많은 정적 컨텐츠들 ...
     </div>
   `
 })
 ```
 
-<p class="tip">Once again, try not to overuse this pattern. While convenient in those rare cases when you have to render a lot of static content, it's simply not necessary unless you actually notice slow rendering -- plus, it could cause a lot of confusion later. For example, imagine another developer who's not familiar with <code>v-once</code> or simply misses it in the template. They might spend hours trying to figure out why the template isn't updating correctly.</p>
+<p class="tip"> 다시 한번 강조하지만, 이러한 패턴을 남용하지 마세요. 이는 렌더링할 정적 컨텐츠가 굉장히 많은 경우에 편리하게 사용할 수는 있지만, 느리게 렌더링 되는 것을 인지하지 못할 정도라면 필수적이지 않습니다. -- 더해서, 이런 방식은 추후에 많은 혼란을 야기할 수 있습니다. 예를 들어, <code>v-once</code>에 친숙하지 않은 개발자이거나 실수로 놓치는 경우에 그들은 템플릿이 정상적으로 업데이트 되지 않는 문제에 대해서 많은 시간을 소비하게 될 수 있습니다.</p>
