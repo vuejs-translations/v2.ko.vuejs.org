@@ -65,7 +65,7 @@ this.$root.baz()
 </google-map>
 ```
 
-이 `<google-map>` 컴포넌트는 모든 하위 컴포넌트가 접근할 수 있어야 하는 `map` 속성을 가져야 합니다. 위의 경우, `<google-map-marker>`가 `this.$parent.getMap`과 같은 방식으로 map에 접근할 수 있어야 정상적으로 마커를 추가할 수 있을 것입니다. [여기](https://jsfiddle.net/chrisvfritz/ttzutdxh/) 에서 해당 패턴을 좀 더 자세히 확인할 수 있습니다. 
+이 `<google-map>` 컴포넌트는 모든 하위 컴포넌트가 접근할 수 있어야 하는 `map` 속성을 가져야 합니다. 위의 경우, `<google-map-marker>`가 `this.$parent.getMap`과 같은 방식으로 `map`에 접근할 수 있어야 정상적으로 마커를 추가할 수 있을 것입니다. [여기](https://jsfiddle.net/chrisvfritz/ttzutdxh/) 에서 해당 패턴을 좀 더 자세히 확인할 수 있습니다. 
 
 본질적으로 위와 같은 패턴은 여전히 취약하다는 것을 기억하세요. 예를 들어, `<google-map-region>` 컴포넌트를 추가하고 `<google-map-markers>` 컴포넌트가 그 지역 안에서만 마커를 렌더링 할 수도 있도록 구조를 변경한다고 가정해 봅시다.
 
@@ -167,11 +167,9 @@ inject: ['getMap']
 
 의존성 주입에 대해서 [API 문서](https://vuejs.org/v2/api/#provide-inject) 에서 더 알아보세요.
 
-## 프로그래밍적 이벤트 리스터
+## 프로그래밍적 이벤트 리스너
 
 지금까지 본 `$emit`을 사용하고 `v-on` 으로 듣는 방법 외에도 Vue 인스턴스는 또다른 이벤트 인터페이스 사용 방법을 가지고 있습니다. 우리는 다음과 같이 작성할 수 있습니다:
-
-So far, you've seen uses of `$emit`, listened to with `v-on`, but Vue instances also offer other methods in its events interface. We can:
 
 - `$on(eventName, eventHandler)` 을 이용한 이벤트 청취
 - `$once(eventName, eventHandler)` 를 이용한 단발성 이벤트 청취
