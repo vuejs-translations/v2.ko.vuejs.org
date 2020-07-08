@@ -193,10 +193,6 @@ MobX는 React 커뮤니티에서 꽤 유명해졌고 실제로 Vue와 거의 같
 
 React같은 라이브러리는 대개 실현 가능한 React와 API와 생태계를 공유하려고 노력합니다. 이러한 이유로, 위의 대부분의 비교도 그들에게 적용될 것입니다. 주된 차이점은 일반적으로 React에 비해 생태계가 현저히 축소되는 것입니다. 이러한 라이브러리들은 React 생태계의 모든 것과 100% 호환될 수 없으므로 일부 툴링 및 동반 라이브러리는 사용할 수 없을 수도 있습니다. 혹은 작동하는 것처럼 보여도, 당신 react계열 라이브러리가 React와 동등한 공식 지원을 받지 않는 한 언제라도 구현이 깨질 수도 있습니다.
 
-### Preact and Other React-Like Libraries
-
-React-like libraries usually try to share as much of their API and ecosystem with React as is feasible. For that reason, the vast majority of comparisons above will also apply to them. The main difference will typically be a reduced ecosystem, often significantly, compared to React. Since these libraries cannot be 100% compatible with everything in the React ecosystem, some tooling and companion libraries may not be usable. Or, even if they appear to work, they could break at any time unless your specific React-like library is officially supported on par with React.
-
 ## AngularJS (Angular 1)
 
 일부 Vue의 문법은 Angular와 매우 유사합니다 (예 :`v-if`와`ng-if`). Angular가 제대로 된 많은 것들을 가지고 있었기 때문에 이것은 개발 초기에 Vue에게 영감이 되었습니다. Angular와 함께 제공되는 많은 고통이 있었지만 Vue가 상당한 개선을 제공하려고 시도하였습니다.
