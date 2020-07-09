@@ -62,7 +62,7 @@ order: 401
 
 `.vue` 컴포넌트로, 우리는 진보한 JavaScript 영역에 들어서고 있습니다. 약간의 아직 배우지 않은 추가 도구 사용방법을 배워야 합니다.
 
-- **Node Package Manager (NPM)** :  [시작 안내서]((https://docs.npmjs.com/packages-and-modules/getting-packages-from-the-registry))에서 어떻게 레지스트리에서 패키지를 가져오는지 읽어보세요.
+- **Node Package Manager (NPM)** :  [시작 안내서](https://docs.npmjs.com/packages-and-modules/getting-packages-from-the-registry)에서 어떻게 레지스트리에서 패키지를 가져오는지 읽어보세요.
 - **ES2015/16를 사용하는 최신 JavaScript** : Babel의 [ES2015 교육 가이드](https://babeljs.io/docs/learn-es2015/)를 읽어보세요. 지금 당장 모든 기능을 외울 필요는 없으나 이 페이지는 언제든지 다시 볼 수 있도록 가지고 계세요.
 
 위 내용을 얻으려면 하루정도 걸립니다. 이 후에 [Vue CLI 3](https://cli.vuejs.org/) 를 확인하는 것을 추천합니다. 설명을 따라 가면 `.vue` 컴포넌트, ES2015 및 핫 리로드가 포함된 Vue 프로젝트를 즉시 사용할 수 있게 됩니다.
