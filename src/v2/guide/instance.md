@@ -146,7 +146,7 @@ new Vue({
 
 
 <p class="tip">options 속성이나 콜백에 `created: () => console.log(this.a)` 이나 `vm.$watch('a', newValue => this.myMethod())` 와 같은 [화살표 함수](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Functions/%EC%95%A0%EB%A1%9C%EC%9A%B0_%ED%8E%91%EC%85%98) 사용을 지양하기 바랍니다.
-화살표 함수들은 부모 컨텍스트에 바인딩되기 때문에, `this` 컨텍스트가 호출하는 Vue 인스턴스에서 사용할 경우 `Uncaught TypeError: Cannot read property of undefined` 또는 `Uncaught TypeError: this.myMethod is not a function`와 같은 오류가 발생하게 됩니다.</p>
+화살표 함수는 `this`를 가지지 않기 때문에 화살표 함수에서의 `this`는 다른 변수로 취급되거나 렉시컬하게 호출한 변수를 발견할 때까지 부모 스코프에서 해당 변수를 찾습니다. 이 때문에 `Uncaught TypeError: Cannot read property of undefined` 또는 `Uncaught TypeError: this.myMethod is not a function`와 같은 오류가 발생하게 됩니다.</p>
 
 ## 라이프사이클 다이어그램
 
