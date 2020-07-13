@@ -4,15 +4,15 @@ type: cookbook
 order: 2
 ---
 
-## Base Example
+## 기본예제
 
-There may be data/utilities you'd like to use in many components, but you don't want to [pollute the global scope](https://github.com/getify/You-Dont-Know-JS/blob/2nd-ed/scope-closures/ch3.md). In these cases, you can make them available to each Vue instance by defining them on the prototype:
+당신은 많은 컴포넌트에서 사용하고 싶을 데이터나 유틸리티들이 있을 테지만  [global scope에 의해 오염되는 것](https://github.com/getify/You-Dont-Know-JS/blob/2nd-ed/scope-closures/ch3.md)은 원하지 않을 것입니다. 이 때, 이것들을 prototype에서 정의하면 각 Vue instance에서 사용할 수 있습니다.
 
 ```js
 Vue.prototype.$appName = 'My App'
 ```
 
-Now `$appName` is available on all Vue instances, even before creation. If we run:
+이제 `$appName` 은 모든 Vue instance에서 사용이 가능합니다. 심지어 아직 만들어지지 않았더라도요. 다음을 실행해 보세요:
 
 ```js
 new Vue({
@@ -22,31 +22,34 @@ new Vue({
 })
 ```
 
-Then `"My App"` will be logged to the console!
+`"My App"` 이 콘솔에 찍힐 것입니다!
 
-## The Importance of Scoping Instance Properties
+## 인스턴스 프로퍼티 스코프의 중요성
 
-You may be wondering:
+당신은 아마 이걸 궁금해 할 수도 있을 겁니다:
 
-> "Why does `appName` start with `$`? Is that important? What does it do?
+> “왜 appName 앞에 $가 붙지? 이거 중요한건가? 이게 왜 있는건데?“
 
 No magic is happening here. `$` is a convention Vue uses for properties that are available to all instances. This avoids conflicts with any defined data, computed properties, or methods.
 
-> "Conflicts? What do you mean?"
 
-Another great question! If you set:
+어렵지 않습니다. `$`는 모든 인스턴스에서 사용 가능한 프로퍼티라고 알려주는 뷰에서 사용하는 언어입니다. 이것은 이미 정의된 데이터나, computed 요소, 메소드와의 충돌을 예방합니다.
+
+> “충돌? 무슨 소리인가요?”
+
+또 다른 좋은 질문입니다! 만약 당신이:
 
 ```js
 Vue.prototype.appName = 'My App'
 ```
 
-Then what would you expect to be logged below?
+ 라고 설정했다면 어떤 로그가 찍힐까요?
 
 ```js
 new Vue({
   data: {
-    // Uh oh - appName is *also* the name of the
-    // instance property we defined!
+    // 이런, appName 우리가 정의한
+    // 인스턴스 프로퍼티와 같은 이름이에요!
     appName: 'The name of some other app'
   },
   beforeCreate: function() {
@@ -58,13 +61,14 @@ new Vue({
 })
 ```
 
-It would be `"My App"`, then `"The name of some other app"`, because `this.appName` is overwritten ([sort of](https://github.com/getify/You-Dont-Know-JS/blob/2nd-ed/this-object-prototypes/ch5.md)) by `data` when the instance is created. We scope instance properties with `$` to avoid this. You can even use your own convention if you'd like, such as `$_appName` or `ΩappName`, to prevent even conflicts with plugins or future features.
+정답은 “MyApp“입니다. 그리고 “The name of some other app”입니다. 그 이유는, `this.appName`은 인스턴스가 생성될 ([때](https://github.com/getify/You-Dont-Know-JS/blob/2nd-ed/this-object-prototypes/ch5.md)) `data`에 의해 덮어쓰기 되었기 때문입니다. 그래서 우리는 이것을 피하기 위해 $를 사용합니다. 심지어 원한다면 플러그인이나 feature와의 충돌을 피하기 위해 `$_appName`나 `ΩappName`과 같은 자신만의 표현을 사용할 수 있습니다.
+ 
 
-## Real-World Example: Replacing Vue Resource with Axios
+## 진짜 일어나는 일들: Vue 리소스를 Axios로 바꿔치기
 
-Let's say you're replacing the [now-retired Vue Resource](https://medium.com/the-vue-point/retiring-vue-resource-871a82880af4). You really enjoyed accessing request methods through `this.$http` and you want to do the same thing with Axios instead.
+[이제 안쓰일 리소스](https://medium.com/the-vue-point/retiring-vue-resource-871a82880af4)를 바꿔야 한다고 가정해 봅시다. 당신은 `this.$http` 를 통해 리퀘스트에 접속하는 걸 자주 사용했는데, axios를 통해같은 동작을 하게 하고 싶다면,
 
-All you have to do is include axios in your project:
+그냥 다음 구문을 코드에 삽입하면 됩니다:
 
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.15.2/axios.js"></script>
@@ -76,13 +80,13 @@ All you have to do is include axios in your project:
 </div>
 ```
 
-Alias `axios` to `Vue.prototype.$http`:
+axios를 `Vue.prototype.$http` 라고 지정(별칭)합니다.
 
 ```js
 Vue.prototype.$http = axios
 ```
 
-Then you'll be able to use methods like `this.$http.get` in any Vue instance:
+이렇게 하면 당신은 어떤 뷰 인스턴스 내에서도 이 메소드를 `this.$http.get`와 동일하게 사용할 수 있습니다:
 
 ```js
 new Vue({
@@ -101,11 +105,11 @@ new Vue({
 })
 ```
 
-## The Context of Prototype Methods
+## 프로토타입 메소드의 구문
 
-In case you're not aware, methods added to a prototype in JavaScript gain the context of the instance. That means they can use `this` to access data, computed properties, methods, or anything else defined on the instance.
+눈치채지 못했을 수도 있지만, 자바스크립트 프로토타입에 더해진 메소드는 인스턴스의 context를 얻을 수 있습니다. 그 뜻은 이것이 접근 가능한 데이터, computed 요소, 메소드 또는 인스턴스에 정의된 어떤 것으로도 사용 가능하다는 의미입니다.
 
-Let's take advantage of this in a `$reverseText` method:
+이제 이 `$reverseText`로의 모험을 떠나봅시다.
 
 ```js
 Vue.prototype.$reverseText = function(propertyName) {
@@ -127,7 +131,8 @@ new Vue({
 })
 ```
 
-Note that the context binding will **not** work if you use an ES6/2015 arrow function, as they implicitly bind to their parent scope. That means the arrow function version:
+만약 당신이 ES6/2015의 화살표 함수를 사용하고 있다면 내부적으로 부모 스코프에 바인딩되기 때문에, context 바인딩이 먹히지 **않을** 것이라는 것을 주의합시다.
+즉, 이렇게 화살표 함수를 사용하면:
 
 ```js
 Vue.prototype.$reverseText = propertyName => {
@@ -138,29 +143,29 @@ Vue.prototype.$reverseText = propertyName => {
 }
 ```
 
-Would throw an error:
+다음과 같은 에러를 발생할 것입니다:
 
 ```log
 Uncaught TypeError: Cannot read property 'split' of undefined
 ```
 
-## When To Avoid This Pattern
+## ### 이 패턴을 피하기 위해
 
-As long as you're vigilant in scoping prototype properties, using this pattern is quite safe - as in, unlikely to produce bugs.
+당신이 프로토타입 요소의 스코프에 충분히 주의만 한다면, 이 패턴을 사용하는 일은 꽤나 안전할 것입니다. - 말 그대로, 버그가 생기는 것은 드뭅니다.
 
-However, it can sometimes cause confusion with other developers. They might see `this.$http`, for example, and think, "Oh, I didn't know about this Vue feature!" Then they move to a different project and are confused when `this.$http` is undefined. Or, maybe they want to Google how to do something, but can't find results because they don't realize they're actually using Axios under an alias.
+하지만, 다른 개발자에겐 종종 혼란이 일어날 수 있습니다. 그 사람은, 예를들어, `$http` 를 보고 "오, 이 뷰 feature는 몰랐는데!"하고 생각할 수 있습니다. 그리고 다른 프로젝트에 가서 `$http`가 정의되지 않은 것을 보고 헷갈려 할 겁니다. 아마 구글링을 해서 답을 찾아보려고 할 수도 있지만, 원하는 결과를 찾지는 못할겁니다. 왜냐하면, 사실 그건 별칭(alias) 된 axios이기 때문이죠.
 
-**The convenience comes at the cost of explicitness.** When looking at a component, it's impossible to tell where `$http` came from. Vue itself? A plugin? A coworker?
+**명시성에는 댓가를 따릅니다.** 컴포넌트를 봤을 때, `$http` 가 어디에서 비롯된 건지 알려주는 건 아무것도 없습니다. 뷰에서 직접? 플러그인을 통해? 협업자가?
 
-So what are the alternatives?
+대안이 대체 뭘까요?
 
-## Alternative Patterns
+## ## 대체 패턴
 
-### When Not Using a Module System
+### 모듈 시스템을 사용하지 않는다면
 
-In applications with **no** module system (e.g. via Webpack or Browserify), there's a pattern that's often used with _any_ JavaScript-enhanced frontend: a global `App` object.
+Webpack나 Browserify와 같은 모듈 시스템을 사용하지 **않는** 어플리케이션이라면, _어떤_ 향상된 자바스크립트 프론트엔드에서도 자주 사용되는 패턴이 있습니다: 글로벌 `App` 오브젝트라는 패턴입니다.
 
-If what you want to add has nothing to do with Vue specifically, this may be a good alternative to reach for. Here's an example:
+만약 당신이 더하고 싶은 것이 뷰를 통해 뭔가 특별한 것을 하지 않는다면, 이것은 좋은 대체제가 될 것입니다. 예를 들어봅시다:
 
 ```js
 var App = Object.freeze({
@@ -179,11 +184,11 @@ var App = Object.freeze({
 })
 ```
 
-<p class="tip">If you raised an eyebrow at `Object.freeze`, what it does is prevent the object from being changed in the future. This essentially makes all its properties constants, protecting you from future state bugs.</p>
+<p class="tip">만약 당신이 이 Object.freeze 부분에서 고개를 갸우뚱 한다면, 이건은 object가 미래에 바뀌는 것을 방지하는 기능을 합니다. 이것은 기본적으로 가지고 있는 모든 프로퍼티를 지속되거 하고, 미래의 상태(state) 버그를 예방합니다.</p>
 
-Now the source of these shared properties is more obvious: there's an `App` object defined somewhere in the app. To find it, developers can run a project-wide search.
+이제 공유된 프로퍼티의 원천이 조금 더 명확해 졌습니다: 앱에는 `App` 으로 정의된 오브젝트가 있습니다. 이것을 찾고 싶다면, 개발자는 프로젝트 전체 검색을 하면 됩니다.
 
-Another advantage is that `App` can now be used _anywhere_ in your code, whether it's Vue-related or not. That includes attaching values directly to instance options, rather than having to enter a function to access properties on `this`:
+App 을 사용하는 또다른 장점은 이것은 이제 뷰와 관련있든(Vue-related) 없든 당신의 코드 _어디에서든_ 사용 가능하다는 점입니다. 이것은 함수의 `this` 안에 있는 프로퍼티에 접근해야 하는 것보다 인스턴스 옵션의 value에 바로 추가할 수 있다는 의미를 포함한다는 소리입니다.
 
 ```js
 new Vue({
@@ -196,8 +201,8 @@ new Vue({
 })
 ```
 
-### When Using a Module System
+### 모듈 시스템을 사용한다면
 
-When you have access to a module system, you can easily organize shared code into modules, then `require`/`import` those modules wherever they're needed. This is the epitome of explicitness, because in each file you gain a list of dependencies. You know _exactly_ where each one came from.
+모듈 시스템에 접속하면, 공유된 코드를 모듈로 파악하는 것은 쉽습니다. 그리고 `require`/`import`를 사용하여 필요한 어느곳에든 사용할 수 있습니다. 이것은 명시성의 전형입니다. 왜냐하면, 각 파일에서 당신은 의존성의 리스트를 얻게 됩니다. 당신은 그것이 어디에서 왔는지 _정확하게_ 알 수 있습니다.
 
-While certainly more verbose, this approach is definitely the most maintainable, especially when working with other developers and/or building a large app.
+좀 복잡해지겠지만, 이 방법을 사용하면 확실하게 유지보수가 수월해집니다. 특히, 다른 개발자와 협업하거나 큰 앱을 개발할 때 말이죠.
