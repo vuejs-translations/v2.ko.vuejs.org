@@ -6,26 +6,17 @@ order: 7
 
 ## `v-if`
 
-Handlebars와 같은 문자열 템플릿에서는 다음과 같은 조건부 블록을 작성할 수 있습니다.
+`v-if` 디렉티브는 조건에 따라 블록을 렌더링하기 위해 사용됩니다. 블록은 디렉티브의 표현식이 true 값을 반환할 때만 렌더링됩니다.
 
 ``` html
-<!-- Handlebars 템플릿 -->
-{{#if ok}}
-  <h1>Yes</h1>
-{{/if}}
-```
-
-Vue에서는 `v-if` 디렉티브를 사용하여 같은 결과를 얻을 수 있습니다.
-
-``` html
-<h1 v-if="ok">Yes</h1>
+<h1 v-if="awesome">Vue is awesome!</h1>
 ```
 
 `v-else`와 함께 "else 블록"을 추가하는 것도 가능합니다.
 
 ``` html
-<h1 v-if="ok">Yes</h1>
-<h1 v-else>No</h1>
+<h1 v-if="awesome">Vue is awesome!</h1>
+<h1 v-else>Oh no 😢</h1>
 ```
 
 ### `<template>`에 `v-if`을 갖는 조건부 그룹 만들기
