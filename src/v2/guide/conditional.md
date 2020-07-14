@@ -6,26 +6,17 @@ order: 7
 
 ## `v-if`
 
-Handlebars와 같은 문자열 템플릿에서는 다음과 같은 조건부 블록을 작성할 수 있습니다.
+`v-if` 디렉티브는 조건에 따라 블록을 렌더링하기 위해 사용됩니다. 블록은 디렉티브의 표현식이 true 값을 반환할 때만 렌더링됩니다.
 
 ``` html
-<!-- Handlebars 템플릿 -->
-{{#if ok}}
-  <h1>Yes</h1>
-{{/if}}
-```
-
-Vue에서는 `v-if` 디렉티브를 사용하여 같은 결과를 얻을 수 있습니다.
-
-``` html
-<h1 v-if="ok">Yes</h1>
+<h1 v-if="awesome">Vue is awesome!</h1>
 ```
 
 `v-else`와 함께 "else 블록"을 추가하는 것도 가능합니다.
 
 ``` html
-<h1 v-if="ok">Yes</h1>
-<h1 v-else>No</h1>
+<h1 v-if="awesome">Vue is awesome!</h1>
+<h1 v-else>Oh no 😢</h1>
 ```
 
 ### `<template>`에 `v-if`을 갖는 조건부 그룹 만들기
@@ -57,7 +48,7 @@ Vue에서는 `v-if` 디렉티브를 사용하여 같은 결과를 얻을 수 있
 
 ### `v-else-if`
 
-> 2.1.0부터 새롭게 추가됨
+> 2.1.0+부터 새롭게 추가됨
 
 `v-else-if`는 이름에서 알 수 있듯, `v-if`에 대한 "else if 블록" 역할을 합니다. 또한 여러 개를 사용할 수 있습니다.
 
@@ -195,5 +186,7 @@ new Vue({
 일반적으로 `v-if`는 토글 비용이 높고 `v-show`는 초기 렌더링 비용이 더 높습니다. 매우 자주 바꾸기를 원한다면 `v-show`를, 런타임 시 조건이 바뀌지 않으면 `v-if`를 권장합니다.
 
 ## `v-if` 와 `v-for`
+
+<p class="tip">`v-if`와 `v-for`을 함께 사용하는 것을 권장하지 않습니다. 자세한 내용은[style guide](/v2/style-guide/#Avoid-v-if-with-v-for-essential)을 확인하십시오.</p>
 
 `v-if`와 함께 사용하는 경우, `v-for`는  `v-if`보다 높은 우선순위를 갖습니다. 자세한 내용은 <a href="../guide/list.html#v-for-with-v-if">리스트 렌더링 가이드</a>를 확인하십시오.

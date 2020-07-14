@@ -16,9 +16,8 @@ var vm = new Vue({
 
 엄격히 [MVVM 패턴](https://en.wikipedia.org/wiki/Model_View_ViewModel)과 관련이 없지만 Vue의 디자인은 부분적으로 그것에 영감을 받았습니다. 관례적으로, Vue 인스턴스를 참조하기 위해 종종 변수 `vm`(ViewModel의 약자)을 사용합니다.
 
-Vue 인스턴스를 인스턴스화 할 때는 데이터, 템플릿, 마운트할 엘리먼트, 메소드, 라이프사이클 콜백 등의 옵션을 포함 할 수있는 **options 객체**를 전달 해야합니다. 전체 옵션 목록은 [API reference](../api)에서 찾을 수 있습니다.
+Vue 인스턴스를 생성할 때는 **options 객체**를 전달해야 합니다. 이 가이드는 대부분 원하는 생성을 구현할 때 이런 옵션들을 사용하여 원하는 동작을 구현하는 방법에 대해 다룹니다. 전체 옵션 목록은 [API reference](../api/#Options-Data)에서 확인할 수 있습니다.
 
-`Vue` 생성자는 미리 정의 된 옵션으로 재사용 가능한 **컴포넌트 생성자**를 생성하도록 확장 될 수 있습니다
 Vue 앱은 `new Vue`를 통해 만들어진 `루트 Vue 인스턴스`로 구성되며 선택적으로 중첩이 가능하고 재사용 가능한 컴포넌트 트리로 구성됩니다. 예를 들어 Todo 앱의 컴포넌트 트리는 다음과 같습니다.
 
 ```
@@ -32,11 +31,11 @@ Root Instance
       └─ TodoListStatistics
 ```
 
-확장된 인스턴스를 만들수는 있으나 대개 템플릿에서 사용자 지정 엘리먼트로 선언적으로 작성하는 것이 좋습니다. 나중에 [컴포넌트 시스템](components.html)에 대해 자세히 설명합니다. 지금은 모든 Vue 컴포넌트가 본질적으로 확장된 Vue 인스턴스라는 것을 알아야 합니다.
+나중에 [컴포넌트 시스템](components.html)에 대해 자세히 설명합니다. 지금은 모든 Vue 컴포넌트가 본질적으로 확장된 Vue 인스턴스이기에 모두 같은 옵션 객체(몇 가지 루트 인스턴스 전용 옵션 제외)를 전달해야 하는 것만 알면 됩니다.
 
-## 속성과 메소드
+## 데이터와 메소드
 
-각 Vue 인스턴스는 `data` 객체에 있는 모든 속성을 **프록시** 처리 합니다.
+Vue 인스턴스가 생성될 때 `data` 객체에 있는 모든 속성이 Vue의 **반응형 시스템**에 추가됩니다. 각 속성값이 변경될 때 뷰가 "반응"하여 새로운 값과 일치하도록 업데이트됩니다.
 
 ``` js
 // 데이터 객체
@@ -47,14 +46,16 @@ var vm = new Vue({
   data: data
 })
 
-// 같은 객체를 참조합니다!
+// 인스턴스에 있는 속성은
+// 원본 데이터에 있는 값을 반환합니다.
 vm.a === data.a // => true
 
-// 속성 설정은 원본 데이터에도 영향을 미칩니다.
+// 인스턴스에 있는 속성값을 변경하면
+// 원본 데이터에도 영향을 미칩니다.
 vm.a = 2
 data.a // => 2
 
-// ... 당연하게도
+// ... 반대로 마찬가지입니다.
 data.a = 3
 vm.a // => 3
 ```
@@ -145,7 +146,7 @@ new Vue({
 
 
 <p class="tip">options 속성이나 콜백에 `created: () => console.log(this.a)` 이나 `vm.$watch('a', newValue => this.myMethod())` 와 같은 [화살표 함수](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Functions/%EC%95%A0%EB%A1%9C%EC%9A%B0_%ED%8E%91%EC%85%98) 사용을 지양하기 바랍니다.
-화살표 함수들은 부모 컨텍스트에 바인딩되기 때문에, `this` 컨텍스트가 호출하는 Vue 인스턴스에서 사용할 경우 `Uncaught TypeError: Cannot read property of undefined` 또는 `Uncaught TypeError: this.myMethod is not a function`와 같은 오류가 발생하게 됩니다.</p>
+화살표 함수는 `this`를 가지지 않기 때문에 화살표 함수에서의 `this`는 다른 변수로 취급되거나 렉시컬하게 호출한 변수를 발견할 때까지 부모 스코프에서 해당 변수를 찾습니다. 이 때문에 `Uncaught TypeError: Cannot read property of undefined` 또는 `Uncaught TypeError: this.myMethod is not a function`와 같은 오류가 발생하게 됩니다.</p>
 
 ## 라이프사이클 다이어그램
 
