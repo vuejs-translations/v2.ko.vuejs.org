@@ -143,7 +143,7 @@ Vue.prototype.$reverseText = propertyName => {
 }
 ```
 
-다음과 같은 에러를 발생할 것입니다:
+다음과 같은 에러가 발생할 것입니다:
 
 ```log
 Uncaught TypeError: Cannot read property 'split' of undefined
