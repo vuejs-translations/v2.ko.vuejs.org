@@ -1,4 +1,14 @@
-﻿# vuejs.org
+# 버전 안내
+
+이 문서는 Vue.js 2버전을 다루고 있습니다. Vue.js 3 가 정식 출시를 앞두고 있는 상태이며, [docs-next](https://github.com/vuejs/docs-next) 저장소에서 Vue.js 3 버전을 준비하고 있습니다.
+
+[docs-next](https://github.com/vuejs/docs-next) 저장소에 기여하는 것을 강력하게 권장합니다. 이 저장소는 Vue.js 3가 정식 출시되면 아카이브할 예정입니다.
+
+한국어 문서는 더이상 이 저장소에서 관리되지 않을 예정입니다.
+
+
+
+# vuejs.org
 
 This site is built with [hexo](http://hexo.io/). Site content is written in Markdown format located in `src`. Pull requests welcome!
 
