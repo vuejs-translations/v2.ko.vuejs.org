@@ -1,5 +1,5 @@
 ---
-title: Adding Instance Properties
+title: 인스턴스 프로퍼티 추가하기
 type: cookbook
 order: 2
 ---
@@ -30,9 +30,6 @@ new Vue({
 
 > “왜 appName 앞에 $가 붙지? 이거 중요한건가? 이게 왜 있는건데?“
 
-No magic is happening here. `$` is a convention Vue uses for properties that are available to all instances. This avoids conflicts with any defined data, computed properties, or methods.
-
-
 어렵지 않습니다. `$`는 모든 인스턴스에서 사용 가능한 프로퍼티라고 알려주는 뷰에서 사용하는 언어입니다. 이것은 이미 정의된 데이터나, computed 요소, 메소드와의 충돌을 예방합니다.
 
 > “충돌? 무슨 소리인가요?”
@@ -61,7 +58,7 @@ new Vue({
 })
 ```
 
-정답은 “MyApp“입니다. 그리고 “The name of some other app”입니다. 그 이유는, `this.appName`은 인스턴스가 생성될 ([때](https://github.com/getify/You-Dont-Know-JS/blob/2nd-ed/this-object-prototypes/ch5.md)) `data`에 의해 덮어쓰기 되었기 때문입니다. 그래서 우리는 이것을 피하기 위해 $를 사용합니다. 심지어 원한다면 플러그인이나 feature와의 충돌을 피하기 위해 `$_appName`나 `ΩappName`과 같은 자신만의 표현을 사용할 수 있습니다.
+정답은 "MyApp"입니다. 그리고 "The name of some other app"입니다. 그 이유는, `this.appName`은 인스턴스가 생성될 `data`에 의해 [덮어쓰기](https://github.com/getify/You-Dont-Know-JS/blob/2nd-ed/this-object-prototypes/ch5.md) 되었기 때문입니다. 그래서 우리는 이것을 피하기 위해 $를 사용합니다. 심지어 원한다면 플러그인이나 feature와의 충돌을 피하기 위해 `$_appName`나 `ΩappName`과 같은 자신만의 표현을 사용할 수 있습니다.
  
 
 ## 진짜 일어나는 일들: Vue 리소스를 Axios로 바꿔치기
@@ -149,7 +146,7 @@ Vue.prototype.$reverseText = propertyName => {
 Uncaught TypeError: Cannot read property 'split' of undefined
 ```
 
-## ### 이 패턴을 피하기 위해
+## 이 패턴을 피하기 위해
 
 당신이 프로토타입 요소의 스코프에 충분히 주의만 한다면, 이 패턴을 사용하는 일은 꽤나 안전할 것입니다. - 말 그대로, 버그가 생기는 것은 드뭅니다.
 
@@ -159,7 +156,7 @@ Uncaught TypeError: Cannot read property 'split' of undefined
 
 대안이 대체 뭘까요?
 
-## ## 대체 패턴
+## 대체 패턴
 
 ### 모듈 시스템을 사용하지 않는다면
 
@@ -184,7 +181,7 @@ var App = Object.freeze({
 })
 ```
 
-<p class="tip">만약 당신이 이 Object.freeze 부분에서 고개를 갸우뚱 한다면, 이건은 object가 미래에 바뀌는 것을 방지하는 기능을 합니다. 이것은 기본적으로 가지고 있는 모든 프로퍼티를 지속되거 하고, 미래의 상태(state) 버그를 예방합니다.</p>
+<p class="tip">만약 당신이 이 Object.freeze 부분에서 고개를 갸우뚱 한다면, 이것은 object가 미래에 바뀌는 것을 방지하는 기능을 합니다. 이것은 기본적으로 가지고 있는 모든 프로퍼티를 지속되게 하고, 미래의 상태(state) 버그를 예방합니다.</p>
 
 이제 공유된 프로퍼티의 원천이 조금 더 명확해 졌습니다: 앱에는 `App` 으로 정의된 오브젝트가 있습니다. 이것을 찾고 싶다면, 개발자는 프로젝트 전체 검색을 하면 됩니다.
 

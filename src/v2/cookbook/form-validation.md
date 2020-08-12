@@ -4,13 +4,13 @@ type: cookbook
 order: 3
 ---
 
-## Base Example
+## 기본예제
 
 <div class="vueschool"><a href="https://vueschool.io/lessons/vuejs-form-validation-diy?friend=vuejs" target="_blank" rel="sponsored noopener" title="Free Vue.js Form Validation Lesson">Watch a free lesson on Vue School</a></div>
 
-Form validation is natively supported by the browser, but sometimes different browsers will handle things in a manner which makes relying on it a bit tricky. Even when validation is supported perfectly, there may be times when custom validations are needed and a more manual, Vue-based solution may be more appropriate. Let's begin with a simple example.
+Form 검증은 브라우저에서 네이티브로 지원하지만, 서로 다른 브라우저의 방식의 차이로 이것을 사용할 때 주의가 필요합니다. 설령 검증이 완벽하게 지원된다 하더라도 커스텀 검증이나 더 자세한 메뉴얼이 필요한 경우가 뷰 기반의 해결방안이 차라리 나을 수 있습니다. 간단한 예제로 살펴봅시다.
 
-Given a form of three fields, make two required. Let's look at the HTML first:
+세가지 필드를 가진 form이 주어지고, 두개를 요청했습니다. HTML을 먼저 보겠습니다:
 
 ``` html
 <form
@@ -71,11 +71,11 @@ Given a form of three fields, make two required. Let's look at the HTML first:
 </form>
 ```
 
-Let's cover it from the top. The `<form>` tag has an ID that we'll be using for the Vue component. There's a submit handler that you'll see in a bit, and the `action` is a temporary URL that would point to something real on a server someplace (where you have backup server-side validation of course).
+제일 위부터 살펴봅시다. `<form>` 태그는 우리가 Vue 컴포넌트로 사용할 수 있는 id를 가지고 있습니다. 그 아래에 submit 핸들러가 있고, `action` 은 실제 서버의 (당신이 백업 서버사이드 검증을 가지고 있는) 어떠한 부분을 가리키는 비영구적인 url을 담고 있습니다. 
 
-Beneath that there is a paragraph that shows or hides itself based on an error state. This will render a simple list of errors on top of the form. Also note we fire the validation on submit rather than as every field is modified.
+그보다 더 아래 `p` 는 에러 상태에 따라 보여주거나 숨겨집니다. 이것은 form 위에 간단한 에러들의 리스트를 랜더링 할 것입니다. 또한 우리는 모든 필드가 채워진 후에야 submit 검증을 할 것임을 기억하세요.
 
-The final thing to note is that each of the three fields has a corresponding `v-model` to connect them to values we will work with in the JavaScript. Now let's look at that.
+마지막으로 기억해야 할 건, 각 세개의 필드는 `v-model` 을 통해 value를 대응시켜 자바스크립트에서 동작하도록 해준다는 것입니다. 이제 확인해 봅시다.
 
 ``` js
 const app = new Vue({
@@ -107,14 +107,14 @@ const app = new Vue({
 })
 ```
 
-Fairly short and simple. We define an array to hold errors and set `null` values for the three form fields. The `checkForm` logic (which is run on submit remember) checks for name and age only as movie is optional. If they are empty we check each and set a specific error for each. And that's really it. You can run the demo below. Don't forget that on a successful submission it's going to POST to a temporary URL.
+Fair충분히 짧고 심플합니다. 우린 정렬을 사용해 에러를 보존하게 하고 세 폼 필드에 `null` 값을 세팅해 주었습니다. 영화는 선택 사항이기 때문에 checkForm 로직은 (submit에서 돌아간다는 점 기억해 두세요) 이름과 나이만을 체크합니다. 아래 데모를 통해 확인 가능합니다. 성공적인 전송을 위해서는 POST를 사용해야 한다는 점 잊지 마세요.
 
 <p data-height="265" data-theme-id="0" data-slug-hash="GObpZM" data-default-tab="html,result" data-user="cfjedimaster" data-embed-version="2" data-pen-title="form validation 1" class="codepen">See the Pen <a href="https://codepen.io/cfjedimaster/pen/GObpZM/">form validation 1</a> by Raymond Camden (<a href="https://codepen.io/cfjedimaster">@cfjedimaster</a>) on <a href="https://codepen.io">CodePen</a>.</p>
 <script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
 
-## Using Custom Validation
+## 커스텀 검증 사용하기
 
-For the second example, the second text field (age) was switched to email which will be validated with a bit of custom logic. The code is taken from the StackOverflow question, [How to validate email address in JavaScript?](https://stackoverflow.com/questions/46155/how-to-validate-email-address-in-javascript). This is an awesome question because it makes your most intense Facebook political/religious argument look like a slight disagreement over who makes the best beer. Seriously - it's insane. Here is the HTML, even though it's really close to the first example.
+두 번째 예시로, 두번째 필드(나이)를 약간의 커스텀 검증을 사용한 이메일로 변경해 보겠습니다. 코드는 스텍오버플로우의 [How to validate email address in JavaScript?](https://stackoverflow.com/questions/46155/how-to-validate-email-address-in-javascript)에서 가지고 왔습니다. 이건 정말 굉장한 질문입니다. 어느정도나면 당신이 페이스북에 남기는 가장 격렬한 정치적/종교적 토론조차 누가 세상에서 제일 맛있는 맥주를 만드는지에 관한 약간의 불일치로 보일 정도입니다. 진짜로요. 짱이죠. 여기에 HTML이 있습니다, 거의 첫번째 예시와 다를 바가 없지만요.
 
 ``` html
 <form
@@ -175,7 +175,7 @@ For the second example, the second text field (age) was switched to email which 
 </form>
 ```
 
-While the change here is small, note the `novalidate="true"` on top. This is important because the browser will attempt to validate the email address in the field when `type="email"`. Frankly it may make more sense to trust the browser in this case, but as we wanted an example with custom validation, we're disabling it. Here's the updated JavaScript.
+변화는 적지만, 맨 위에 `novalidate="true"` 는 주목해 주세요. 이게 중요한 이유는 `type="email"`를 필드에서 사용하면 브라우저에서 검증을 해주기 때문입니다. 솔직히 말하자면 여기서는 브라우저의 검증 능력을 믿는 게 훨씬 낫지만, 커스텀 검증을 예시로 사용해야하기 때문에 이것을 막을 겁니다. 여기 자바스크립트 입니다.
 
 ``` js
 const app = new Vue({
@@ -213,14 +213,14 @@ const app = new Vue({
 })
 ```
 
-As you can see, we've added `validEmail` as a new method and it is simply called from `checkForm`. You can play with this example here:
+보시다시피, `validEmail`이라는 새 메소드가 추가되었고 이것은 `checkForm`이 불러옵니다. 여기 예시를 직접 볼 수 있습니다:
 
 <p data-height="265" data-theme-id="0" data-slug-hash="vWqNXZ" data-default-tab="html,result" data-user="cfjedimaster" data-embed-version="2" data-pen-title="form validation 2" class="codepen">See the Pen <a href="https://codepen.io/cfjedimaster/pen/vWqNXZ/">form validation 2</a> by Raymond Camden (<a href="https://codepen.io/cfjedimaster">@cfjedimaster</a>) on <a href="https://codepen.io">CodePen</a>.</p>
 <script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
 
-## Another Example of Custom Validation
+## 커스텀 검증의 또 다른 예시
 
-For the third example, we've built something you've probably seen in survey apps. The user is asked to spend a "budget" for a set of features for a new Star Destroyer model. The total must equal 100. First, the HTML.
+세번째 예시로는, 아마 설문조사 앱에서 본적 있었을 것을 만들어 보았습니다. 사용자는 새 행성파괴자(Star Destroyer) 모델의 feature을 작성하기 위해 위해 얼마를 소모할지 작성해야 합니다. 모든 값을 더하면 100이 되어야 합니다. 먼저 HTML입니다.
 
 ``` html
 <form
@@ -286,7 +286,7 @@ For the third example, we've built something you've probably seen in survey apps
 </form>
 ```
 
-Note the set of inputs covering the five different features. Note the addition of `.number` to the `v-model` attribute. This tells Vue to cast the value to a number when you use it. However, there is a bug with this feature such that when the value is blank, it turns back into a string. You'll see the workaround below. To make it a bit easier for the user, we also added a current total right below so they can see, in real time, what their total is. Now let's look at the JavaScript.
+먼저 input안에 5개의 다른 feature가 있다는 결 주목하세요.v-model의 .number 속성이 주는 추가 정보에 대해서도 주목해주세요. 이것은 Vue에서 해당 값을 작성할 때 숫자만 입력받아야 한다는 정보를 줍니다. 그러나 이 feature는 한가지 버그가 있는데, value가 비어있거나 한 경우 string으로 돌아가고 맙니다. 아래에 해결 방법을 적어놓았습니다. 사용자의 이해를 돕기 위해, 우리는 바로 아래에 실시간 현재 합계를 추가해 놓았습니다. 이제 자바스크립트를 봐 봅시다.
 
 ``` js
 const app = new Vue({
@@ -326,14 +326,14 @@ const app = new Vue({
 })
 ```
 
-We set up the total value as a computed value, and outside of that bug I ran into, it was simple enough to setup. My checkForm method now just needs to see if the total is 100 and that's it. You can play with this here:
+우리는 총합을 computed value로 총합을 표기했고, 아주 간단하게 버그를 수정했습니다. 저의 checkForm 메소드는 이제 총합이 100인지의 여부만 확인하면 됩니다. 여기를 실행해 보세요:
 
 <p data-height="265" data-theme-id="0" data-slug-hash="vWqGoy" data-default-tab="html,result" data-user="cfjedimaster" data-embed-version="2" data-pen-title="form validation 3" class="codepen">See the Pen <a href="https://codepen.io/cfjedimaster/pen/vWqGoy/">form validation 3</a> by Raymond Camden (<a href="https://codepen.io/cfjedimaster">@cfjedimaster</a>) on <a href="https://codepen.io">CodePen</a>.</p>
 <script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
 
-## Server-side Validation
+## 서버사이드 검증
 
-In my final example, we built something that makes use of Ajax to validate at the server. The form will ask you to name a new product and will then check to ensure that the name is unique. We wrote a quick [OpenWhisk](http://openwhisk.apache.org/) serverless action to do the validation. While it isn't terribly important, here is the logic:
+마지막 예시로, 우리는 ajax를 통해 서버에서 검증을 시행하는 것을 만들어 보았습니다. 폼은 당신에게 새 상품의 이름을 물을 것이고, 그 이름이 중복되지 않았는지 체크할 것입니다. 우리는 검증을 위해 [Netlify](https://www.netlify.com) 를 통해 빠른 서버리스 동작을 사용했습니다. 여기서는 중요하게 다루지 않지만, 로직은 아래와 같습니다:
 
 ``` js
 function main(args) {
@@ -350,7 +350,7 @@ function main(args) {
 }
 ```
 
-Basically any name but "vista", "empire", and "mbp" are acceptable. Ok, so let's look at the form.
+기본적으로 "vista", "empire", 그리고 "mbp"를 제외한 어떤 이름이든 사용 가능합니다. 좋아요, 이제 폼을 봅시다.
 
 ``` html
 <form
@@ -386,7 +386,7 @@ Basically any name but "vista", "empire", and "mbp" are acceptable. Ok, so let's
 </form>
 ```
 
-There isn't anything special here. So let's go on to the JavaScript.
+별로 중요해 보이는 게 없네요. 이제 자바스크립트로 넘어가 봅시다.
 
 ``` js
 const apiUrl = 'https://openwhisk.ng.bluemix.net/api/v1/web/rcamden%40us.ibm.com_My%20Space/safeToDelete/productName.json?name=';
@@ -422,14 +422,14 @@ const app = new Vue({
 })
 ```
 
-We start off with a variable representing the URL of the API that is running on OpenWhisk. Now look at `checkForm`. In this version, we always prevent the form from submitting (which, by the way, could be done in the HTML with Vue as well). You can see a basic check on `this.name` being empty, and then we hit the API. If it's bad, we add an error as before. If it's good, right now we do nothing (just an alert), but you could navigate the user to a new page with the product name in the URL, or do other actions as well. You can run this demo below:
+이제 `checkForm`을 봐봅시다. 이 버전에서, 우리는 폼의 submit을 막았습니다. (다른 말이지만, 사실 뷰랑 HTML만으로도 충분하지만요.) `this.name`이 비어있는지 체크하고, api를 호출합니다. 값이 비었다면, 에러 메세지를 방출합니다. 제대로 입력했다면, (알림외에는) 아무것도 일어나지 않습니다. 하지만 URL에 포함된 제품 이름의 새 페이지로 안내하거나 다른 동작을 할 수 있습니다.  다음 데모를 확인해 보세요:
 
 <p data-height="265" data-theme-id="0" data-slug-hash="BmgzeM" data-default-tab="js,result" data-user="cfjedimaster" data-embed-version="2" data-pen-title="form validation 4" class="codepen">See the Pen <a href="https://codepen.io/cfjedimaster/pen/BmgzeM/">form validation 4</a> by Raymond Camden (<a href="https://codepen.io/cfjedimaster">@cfjedimaster</a>) on <a href="https://codepen.io">CodePen</a>.</p>
 <script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
 
-## Alternative Patterns
+## 대체 패턴
 
-While this cookbook entry focused on doing form validation "by hand", there are, of course, some great Vue libraries that will handle a lot of this for you. Switching to a prepackage library may impact the final size of your application, but the benefits could be tremendous. You have code that is (most likely) heavily tested and also updated on a regular basis. Some examples of form validation libraries for Vue include:
+이 쿡북에서는 폼 검증을 "직접" 하는 것에 집중했지만, 당연히 이것을 시행해주는 좋은 뷰 라이브러리들이 있습니다. 프리패키징 라이브러리로 바꾸는 건 분명 당신의 앱 사이즈에 영향을 미치겠지만, 아마 실보다 득이 더 클 것입니다. 충분히 검증되고, 지속적으로 업데이트 되고있는 뷰 라이브러리의 예로는 다음이 포함됩니다 :
 
 * [vuelidate](https://github.com/monterail/vuelidate)
 * [VeeValidate](https://logaretm.github.io/vee-validate/)
