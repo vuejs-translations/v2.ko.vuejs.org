@@ -512,7 +512,7 @@ methods: {
 </div>
 ```
 
-`is="todo-item"` 속성을 보면 `&lt;li&gt;` 엘리먼트는 `&lt;ul&gt;` 안에서만 유효합니다. `&lt;todo-item&gt;`과 같은 일을 하지만 잠재적인 브라우저의 구문 분석 오류를 해결 합니다. 자세한 내용은 [DOM 템플릿 파싱 주의사항](components.html#DOM-Template-Parsing-Caveats)을 참조하세요.
+`is="todo-item"` 속성을 보면 `<li>` 엘리먼트는 `<ul>` 안에서만 유효합니다. `<todo-item>`과 같은 일을 하지만 잠재적인 브라우저의 구문 분석 오류를 해결 합니다. 자세한 내용은 [DOM 템플릿 파싱 주의사항](components.html#DOM-Template-Parsing-Caveats)을 참조하세요.
 
 ``` js
 Vue.component('todo-item', {
