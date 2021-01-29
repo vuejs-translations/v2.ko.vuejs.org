@@ -2,7 +2,7 @@
 title: 설치방법
 type: guide
 order: 1
-vue_version: 2.6.11
+vue_version: 2.6.12
 gz_size: "33.30"
 ---
 
@@ -51,7 +51,7 @@ Vue를 사용할 때, 브라우저에 [Vue Devtools](https://github.com/vuejs/vu
 
 ``` html
 <script type="module">
-  import Vue from 'https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.esm.browser.js'
+  import Vue from 'https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.esm.browser.js'
 </script>
 ```
 
