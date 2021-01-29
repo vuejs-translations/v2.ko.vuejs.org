@@ -179,7 +179,7 @@ Vue를 시작하기 위해 JSX, ES2015 또는 빌드 시스템에 대해 알 필
 
 ### 네이티브 렌더링
 
-ReactNative를 사용하면 같은 React 컴포넌트 모델을 사용하여 iOS 및 Android 용 기본 렌더링 애플리케이션을 작성할 수 있습니다. 이것은 개발자로서 여러 플랫폼에서 에 대한 지식을 적용할 수 있다는 점에서 매우 좋습니다. Vue는 Vue를 JavaScript 런타임으로 사용하는 Alibaba Group에서 개발 한 크로스 플랫폼 UI인 [Weex](https://alibaba.github.io/weex/)와 공식 협업을 맺고 있습니다. 즉, Weex를 사용하면 같은 Vue 컴포넌트 문법을 사용하여 브라우저에서 렌더링할 수 있을 뿐만 아니라 iOS 및 Android에서도 렌더링 할 수있는 컴포넌트를 작성할 수 있습니다!
+ReactNative를 사용하면 같은 React 컴포넌트 모델을 사용하여 iOS 및 Android 용 기본 렌더링 애플리케이션을 작성할 수 있습니다. 이것은 개발자로서 여러 플랫폼에서 에 대한 지식을 적용할 수 있다는 점에서 매우 좋습니다. Vue는 Vue를 JavaScript 런타임으로 사용하는 Alibaba Group에서 개발 한 크로스 플랫폼 UI인 [Weex](https://weex.apache.org/)와 공식 협업을 맺고 있습니다. 즉, Weex를 사용하면 같은 Vue 컴포넌트 문법을 사용하여 브라우저에서 렌더링할 수 있을 뿐만 아니라 iOS 및 Android에서도 렌더링 할 수있는 컴포넌트를 작성할 수 있습니다!
 
 현재 Weex는 아직 개발 중이며 ReactNative만큼 성숙하고 전투적인 테스트를 거치지는 않았지만 개발은 세계 최대의 전자 상거래 비즈니스의 생산 요구에 의해 주도되고 있고 Vue 팀은 적극적으로 협력 할 것입니다. Weex 팀과 함께 Vue 개발자를위한 원활한 경험을 보장합니다.
 
