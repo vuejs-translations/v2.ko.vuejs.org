@@ -439,7 +439,7 @@ methods: {
 
 ## `v-for` 와 `v-if`
 
-<p class="tip">Note that it's **not** recommended to use `v-if` and `v-for` together. Refer to [style guide](/v2/style-guide/#Avoid-v-if-with-v-for-essential) for details.</p>
+`v-if` 와 `v-for` 를 동시에 사용하는 것을 **추천하지 않습니다.** [스타일가이드](/v2/style-guide/#Avoid-v-if-with-v-for-essential)에서 자세한 내용을 확인하세요.
 
 동일한 노드에 두가지 모두 있다면, `v-for`가 `v-if`보다 높은 우선순위를 갖습니다. 즉, `v-if`는 루프가 반복될 때마다 실행됩니다. 이는 *일부* 항목만 렌더링 하려는 경우 유용합니다.
 
