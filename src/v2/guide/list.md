@@ -290,7 +290,7 @@ Vue.set(vm.items, indexOfItem, newValue)
 vm.items.splice(indexOfItem, 1, newValue)
 ```
 
-You can also use the [`vm.$set`](https://vuejs.org/v2/api/#vm-set) instance method, which is an alias for the global `Vue.set`:
+물론 인스턴스 메소드 [`vm.$set`](https://vuejs.org/v2/api/#vm-set) 도 사용 가능하며, 이것은 전역 메소드 `Vue.set` :
 
 ``` js
 vm.$set(vm.items, indexOfItem, newValue)
