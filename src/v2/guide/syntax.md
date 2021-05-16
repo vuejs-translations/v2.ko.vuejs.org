@@ -56,7 +56,7 @@ new Vue({
 
 `span`의 내용은 `rawHtml`로 대체됩니다. 이 때 데이터 바인딩은 무시됩니다. Vue는 문자열 기반 템플릿 엔진이 아니기 때문에 `v-html`을 이용해 템플릿을 사용할 수 없습니다. 이와 달리 컴포넌트는 UI 재사용 및 구성을 위한 기본 단위로 사용하는 것을 추천합니다.
 
-<p class="tip">웹사이트에서 임의의 HTML을 동적으로 렌더링하려면 [XSS 취약점](https://en.wikipedia.org/wiki/Cross-site_scripting)으로 쉽게 이어질 수 있으므로 매우 위험할 가능성이 있습니다. 신뢰할 수 있는 콘텐츠에서만 HTML 보간을 사용하고 사용자가 제공한 콘텐츠에서는 **절대** 사용하면 안됩니다.</p>
+<p class="tip">웹사이트에서 임의의 HTML을 동적으로 렌더링하려면 <a href="https://en.wikipedia.org/wiki/Cross-site_scripting">XSS 취약점</a>으로 쉽게 이어질 수 있으므로 매우 위험할 가능성이 있습니다. 신뢰할 수 있는 콘텐츠에서만 HTML 보간을 사용하고 사용자가 제공한 콘텐츠에서는 <strong>절대</strong> 사용하면 안됩니다.</p>
 
 ### 속성
 
@@ -98,7 +98,7 @@ boolean 속성을 사용할 때 단순히 `true`인 경우 `v-bind`는 조금 �
 {{ if (ok) { return message } }}
 ```
 
-<p class="tip">템플릿 표현식은 샌드박스 처리되며 `Math`와 `Date` 같은 [전역으로 사용 가능한 것](https://github.com/vuejs/vue/blob/v2.6.10/src/core/instance/proxy.js#L9)에만 접근할 수 있습니다. 템플릿 표현식에서 사용자 정의 전역에 액세스 하지 마십시오.</p>
+<p class="tip">템플릿 표현식은 샌드박스 처리되며 <code>Math</code>와 <code>Date</code> 같은 <a href="https://github.com/vuejs/vue/blob/v2.6.10/src/core/instance/proxy.js#L9">전역으로 사용 가능한 것</a>에만 접근할 수 있습니다. 템플릿 표현식에서 사용자 정의 전역에 액세스 하지 마십시오.</p>
 
 ## 디렉티브
 
