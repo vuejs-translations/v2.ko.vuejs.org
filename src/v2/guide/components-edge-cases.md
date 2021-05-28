@@ -272,7 +272,7 @@ template: '<div><stack-overflow></stack-overflow></div>'
 
 ### 두 컴포넌트 사이의 순환 참조
 
-Finder나 File Explorer 같은 파일 디렉토리 트리를 만드는 경우를 생각해 봅시다. 아마 아래와 같은 `tree-foler` 컴포넌트를 만들었을 것입니다:
+Finder나 File Explorer 같은 파일 디렉토리 트리를 만드는 경우를 생각해 봅시다. 아마 아래와 같은 `tree-folder` 컴포넌트를 만들었을 것입니다:
 
 ``` html
 <p>
