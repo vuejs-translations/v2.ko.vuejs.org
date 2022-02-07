@@ -38,7 +38,7 @@ Vue.js를 시험해 볼 수 있는 가장 쉬운 방법은 [JSFiddle Hello World
 
 [설치](installation.html) 페이지에는 Vue를 설치하기 위한 옵션이 추가로 제공됩니다. 특히 Node.js 기반 빌드 도구에 아직 익숙하지 않으면 `vue-cli`로 시작하는 것을 권장하지 **않습니다.**
 
-보다 인터랙티브한 학습을 원한다면, 언제든지 중지/재생 할 수 있는 스크린캐스트와 코드를 테스트 할 수 있는 환경를 제공해주는 [Scrimba의 튜토리얼 시리즈](https://scrimba.com/playlist/pXKqta)를 확인해보세요.
+보다 인터랙티브한 학습을 원한다면, 언제든지 중지/재생 할 수 있는 스크린캐스트와 코드를 테스트 할 수 있는 환경 제공해주는 [Scrimba의 튜토리얼 시리즈](https://scrimba.com/playlist/pXKqta)를 확인해보세요.
 
 ## 선언적 렌더링
 
